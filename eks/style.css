@@ -1,0 +1,79 @@
+/* ベースカラーとフォント */
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap");
+
+:root {
+  --slidev-theme-background: #fcf9f2;
+  --slidev-theme-slide-bg: #fff2dcff;
+  --slidev-theme-text-color: #444;
+  --slidev-theme-header-color: #444;
+  --slidev-theme-header-line: #444;
+}
+
+body {
+  background: var(--slidev-theme-background);
+  font-family: "IBM Plex Mono", "M PLUS Rounded 1c", monospace, sans-serif;
+}
+
+#slideshow,
+.slidev-layout {
+  background: var(--slidev-theme-background);
+  border-radius: 64px;
+  margin: 16px auto;
+  box-shadow: none;
+  max-height: 95%;
+  max-width: 95%;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(11, 11, 11, 0.05);
+  padding-top: 16px;
+}
+.slidev-page {
+  background: var(--slidev-theme-slide-bg);
+}
+.slidev-page img {
+  max-width: 100%;
+  max-height: 300px;
+}
+
+/* タイトル */
+h1,
+h2,
+h3,
+h4 {
+  font-family: "IBM Plex Mono", monospace;
+  color: #444;
+  font-weight: 400;
+  margin: 0;
+}
+h1 {
+  font-size: 5rem;
+  line-height: 1;
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid var(--slidev-theme-header-line);
+}
+h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5em;
+}
+
+/* その他 */
+p,
+ul,
+ol,
+li {
+  font-family: "IBM Plex Mono", monospace;
+  color: #444;
+  font-size: 1rem;
+}
+
+pre,
+code {
+  font-family: "IBM Plex Mono", monospace;
+  background: #f3f1eb;
+  border-radius: 8px;
+  padding: 0.2em 0.5em;
+}
+
+/* 画像の角丸 */
+img {
+  border-radius: 24px;
+}
