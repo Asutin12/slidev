@@ -48,9 +48,6 @@ PDF や SPA (Single Page Application) としてスライドをエクスポート
 ```bash
 # PDFとしてエクスポート
 bun export
-
-# SPAとしてエクスポート
-bun build
 ```
 
 ## 新しいスライドの作成
@@ -88,11 +85,3 @@ cp slidev/slides.md slidev/slides-new-topic.md
     └── docs/               # ドキュメント関連
         └── rules.md        # スライド作成ルール
 ```
-
-## 貢献
-
-このリポジトリへの貢献を歓迎します。新しいハンズオン資料の追加や既存資料の改善に関するプルリクエストをお待ちしております。
-
-## ライセンス
-
-[LICENSE](LICENSE) ファイルを参照してください。
