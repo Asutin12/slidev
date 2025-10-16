@@ -10,8 +10,8 @@ lineNumbers: false
 info: |
   ## Azure App Service 系サービスハンズオン
 
-  Web Apps、API Apps、Function Apps、Application Insightsを実践的に学び、
-  Mobile Apps、Web App for Containersの概要を理解するハンズオン資料です。
+  Web Apps、API Apps、Application Insightsを実践的に学び、
+  Mobile Apps、Web App for Containers、Azure Functions / Function Appsの概要を理解するハンズオン資料です。
 ---
 
 ## Azure App Service 系サービス<br>ハンズオン
@@ -38,31 +38,30 @@ Azure App Service 系サービスを実践的に学び、Azure でのアプリ�
 - 🌐 **App Service の全体像**
 - 📋 **前提条件**
 
-### 実践ハンズオン（4 つ）
+### 実践ハンズオン（3 つ）
 
 - 🚀 **① Web Apps**
   - Next.js アプリをデプロイ
 - 🔌 **② API Apps**
   - REST API の構築とデプロイ
-- ⚡ **③ Function Apps**
-  - サーバーレスで画像処理
-- 📊 **④ Application Insights**
+- 📊 **③ Application Insights**
   - アプリケーション監視
 
 </div>
 <div>
 
-### 詳細説明（2 つ）
+### 詳細説明（3 つ）
 
 - 📲 **Mobile Apps** - モバイルバックエンド、認証・同期
 - 🐳 **Web App for Containers** - Docker コンテナホスティング
+- ⚡ **Azure Functions / Function Apps** - サーバーレス、イベント駆動
 
 </div>
 </div>
 
 ---
-
-## layout: center
+layout: center
+---
 
 # Azure App Service とは？
 
@@ -141,16 +140,6 @@ Azure App Service ファミリーの主要サービスを理解し、用途に�
 </div>
 </div>
 
-<div class="bg-yellow-500/10 p-3 rounded">
-
-#### ⚡ Function Apps（ハンズオン）
-
-<div class="mt-2">
-<strong>用途：</strong>イベント駆動・サーバーレス処理<br>
-<strong>特徴：</strong>従量課金、トリガー豊富、スケールアウト自動
-</div>
-</div>
-
 <div class="bg-red-500/10 p-3 rounded">
 
 #### 📊 Application Insights（ハンズオン）
@@ -181,11 +170,22 @@ Azure App Service ファミリーの主要サービスを理解し、用途に�
 </div>
 </div>
 
+<div class="bg-yellow-500/10 p-3 rounded">
+
+#### ⚡ Azure Functions / Function Apps（概要）
+
+<div class="mt-2">
+<strong>用途：</strong>イベント駆動・サーバーレス処理<br>
+<strong>特徴：</strong>従量課金、トリガー豊富、スケールアウト自動<br>
+<strong>補足：</strong>Function App = 実行環境、Azure Functions = 個別の関数コード
+</div>
+</div>
+
 </div>
 
 ---
 
-## 各サービスの詳細説明（1/5）
+## 各サービスの詳細説明（1/6）
 
 ### 🚀 Web Apps
 
@@ -213,7 +213,7 @@ Azure App Service ファミリーの主要サービスを理解し、用途に�
 
 ---
 
-## 各サービスの詳細説明（2/5）
+## 各サービスの詳細説明（2/6）
 
 ### 🔌 API Apps
 
@@ -242,36 +242,7 @@ Azure App Service ファミリーの主要サービスを理解し、用途に�
 
 ---
 
-## 各サービスの詳細説明（3/5）
-
-<div class="grid grid-cols-2 gap-8">
-<div>
-
-### ⚡ Function Apps
-
-**どういうサービス？**
-
-- サーバーレスコンピューティングプラットフォーム
-- イベント駆動で関数を実行
-
-**主な特徴：**
-
-- 従量課金（実行回数・時間のみ課金）
-- 豊富なトリガー（HTTP、Timer、Blob、Queue 等）
-- 自動スケーリング
-
-**何のため？**
-
-- 定期バッチ処理、画像変換、データ処理
-- Webhook 受信、非同期タスク実行
-
-**比較：**
-
-- **vs Web Apps**: 常時稼働不要、コスト効率的
-- **vs AWS Lambda**: 同等のサーバーレス、Azure 統合が強み
-
-</div>
-<div>
+## 各サービスの詳細説明（3/6）
 
 ### 📊 Application Insights
 
@@ -297,12 +268,9 @@ Azure App Service ファミリーの主要サービスを理解し、用途に�
 - **vs DataDog/New Relic**: Azure 統合が深く、コスト優位
 - **vs CloudWatch**: より高度な APM 機能
 
-</div>
-</div>
-
 ---
 
-## 各サービスの詳細説明（4/5）
+## 各サービスの詳細説明（4/6）
 
 ### 📲 Mobile Apps
 
@@ -332,7 +300,7 @@ Azure App Service ファミリーの主要サービスを理解し、用途に�
 
 ---
 
-## 各サービスの詳細説明（5/5）
+## 各サービスの詳細説明（5/6）
 
 ### 🐳 Web App for Containers
 
@@ -362,7 +330,46 @@ Azure App Service ファミリーの主要サービスを理解し、用途に�
 
 ---
 
-## layout: center
+## 各サービスの詳細説明（6/6）
+
+### ⚡ Azure Functions / Function Apps
+
+**どういうサービス？**
+
+- **Azure Functions**: サーバーレスコンピューティングのランタイム/プログラミングモデル
+  - 実際のコード（関数）を書く仕組み
+- **Function App**: Azure Functions をホストする実行環境（管理単位）
+  - Azure Functions を実行する「コンテナ」
+
+**主な特徴：**
+
+- **従量課金**: 実行回数・時間のみ課金、アイドル時は無料
+- **豊富なトリガー**: HTTP、Timer、Blob、Queue、Event Grid など
+- **自動スケーリング**: トラフィックに応じて自動的にスケール
+- **イベント駆動**: 各種イベントに応じて関数を実行
+
+**何のため？**
+
+- 定期バッチ処理（毎日のレポート生成など）
+- 画像変換・動画処理（アップロード時に自動処理）
+- Webhook 受信（GitHub、Slack などのイベント処理）
+- 非同期タスク実行（メール送信、データ処理）
+
+**比較：**
+
+- **vs Web Apps**: 常時稼働不要、コスト効率的、イベント駆動
+- **vs AWS Lambda**: 同等のサーバーレス、Azure サービスとの統合が強み
+- **vs Logic Apps**: コード記述が必要だが、より柔軟な処理が可能
+
+**ホスティングプラン：**
+
+- **Consumption Plan（従量課金）**: 実行時のみ課金、自動スケール（推奨）
+- **Premium Plan**: 常時稼働、VNet 統合、より高性能
+- **Dedicated Plan（App Service Plan）**: 予測可能な価格、既存の App Service Plan 利用
+
+---
+layout: center
+---
 
 # 前提条件
 
@@ -530,8 +537,8 @@ git config --global user.email "your.email@example.com"
 </div>
 
 ---
-
-## layout: center
+layout: center
+---
 
 # ハンズオン ① Web Apps
 
@@ -596,8 +603,6 @@ az appservice plan create \
 # 作成されたプランを確認
 az appservice plan list --output table
 ```
-
-<br>
 
 **App Service Plan とは？**
 
@@ -815,8 +820,8 @@ az webapp update \
 </div>
 
 ---
-
-## layout: center
+layout: center
+---
 
 # ハンズオン ② API Apps
 
@@ -1009,449 +1014,10 @@ curl -X POST https://my-api-app-20251007.azurewebsites.net/api/data \
 ```
 
 ---
-
-## layout: center
-
-# ハンズオン ③ Function Apps
-
-画像を Blob にアップしたら自動でサムネイル生成
-
+layout: center
 ---
 
-## Function Apps ハンズオン概要
-
-**目的:** サーバーレス関数を作成し、イベント駆動処理を実装する
-
-<div class="grid grid-cols-2 gap-8 pt-6">
-<div>
-
-### 📚 学べるポイント
-
-- **サーバーレスの概念**
-  - イベント駆動アーキテクチャ
-- **Trigger/Binding**
-  - Blob Trigger、HTTP Trigger
-- **Storage Account 連携**
-  - Blob Storage の使用
-- **ログ監視**
-  - Application Insights でのログ確認
-
-</div>
-<div>
-
-### 🎯 ハンズオン内容
-
-1. **Function App の作成**
-   - Python 3.12 のサーバーレス環境構築
-2. **Blob Trigger 関数の実装**
-   - 画像アップロード時の自動処理
-3. **サムネイル生成ロジック**
-   - Pillow ライブラリを使った画像変換
-4. **HTTP Trigger 関数**（オプション）
-   - API 形式での関数実行
-
-</div>
-</div>
-
----
-
-## Storage Account とは？
-
-**Azure Storage Account** は、クラウド上でデータを保存するための統合ストレージサービスです。
-
-<div class="grid grid-cols-2 gap-8 pt-6">
-<div>
-
-### 🗄️ 主な機能
-
-- **Blob Storage:** ファイル・画像・動画などの非構造化データ
-- **Queue Storage:** メッセージキュー（非同期処理）
-- **Table Storage:** NoSQL データストア
-- **File Storage:** SMB ファイル共有
-
-<br>
-
-**💡 今回のハンズオンでは Blob Storage を使用**
-
-画像ファイルを保存し、Function App から自動的にサムネイルを生成します。
-
-</div>
-<div>
-
-### ✨ 特徴
-
-- **高い可用性:** データは自動的に複製される
-- **スケーラブル:** 容量制限なく拡張可能
-- **低コスト:** 使った分だけ課金、GB 単位で安価
-- **セキュア:** 暗号化、アクセス制御が標準装備
-
-### 📦 料金体系
-
-- ストレージ容量（GB/月）
-- データ転送量（アップロード・ダウンロード）
-- 操作回数（読み取り・書き込み）
-
-</div>
-</div>
-
----
-
-## Blob Storage の「コンテナ」とは？
-
-**コンテナ（Container）**は、Blob（ファイル）を格納するための**論理的なフォルダ**です。
-
-<div class="grid grid-cols-2 gap-8 pt-6">
-<div>
-
-### 🗂️ 概念の理解
-
-```
-Storage Account (ストレージアカウント)
- └── Container (コンテナ) = フォルダ
-      └── Blob (ファイル) = 実際のデータ
-```
-
-**例：写真管理アプリの場合**
-
-```
-mystorageacct
- ├── images/          ← 元画像を保存
- │    ├── photo1.jpg
- │    └── photo2.png
- └── thumbnails/      ← サムネイルを保存
-      ├── photo1.jpg
-      └── photo2.png
-```
-
-</div>
-<div>
-
-### 🔑 コンテナの役割
-
-- **データの整理:** 用途別にファイルを分類
-- **アクセス制御:** コンテナ単位で権限設定
-- **バックアップ:** コンテナ単位で管理しやすい
-
-### 📝 アクセスレベル
-
-- **Private（既定）:** 認証が必要
-- **Blob:** Blob への匿名読み取り可
-- **Container:** コンテナと Blob の一覧も取得可
-
-**💡 セキュリティのため、通常は Private を推奨**
-
-</div>
-</div>
-
----
-
-## 接続文字列とは？
-
-**接続文字列（Connection String）**は、Storage Account にアクセスするための**認証情報が含まれた文字列**です。
-
-<div class="grid grid-cols-2 gap-8 pt-6">
-<div>
-
-### 🔐 接続文字列の構造
-
-```
-DefaultEndpointsProtocol=https;
-AccountName=mystorageacct20251007;
-AccountKey=abc123xyz...;
-EndpointSuffix=core.windows.net
-```
-
-**含まれる情報:**
-
-- **AccountName:** ストレージアカウント名
-- **AccountKey:** アクセスキー（パスワードのようなもの）
-- **Endpoint:** 接続先 URL
-
-**⚠️ 重要:** AccountKey は機密情報です！
-
-</div>
-<div>
-
-### 🔑 なぜ必要？
-
-アプリケーションが Storage Account にアクセスするには、**誰がアクセスしているか**を証明する必要があります。
-
-**接続文字列の用途:**
-
-1. **Function App の設定**
-   - Blob Trigger で画像を監視
-   - サムネイルを自動保存
-2. **アプリケーションコード**
-   - SDK から Storage 操作
-3. **Azure CLI/SDK**
-   - コマンドラインからの操作
-
-</div>
-</div>
-
----
-
-## 接続文字列の安全な管理
-
-接続文字列は機密情報のため、適切に管理する必要があります。
-
-**1. 環境変数を使用**
-
-```javascript
-// アプリケーションコード
-const connectionString = process.env.AZURE_STORAGE_CONNECTION_STRING;
-```
-
-**2. App Service の環境変数に設定**
-
-```bash
-az webapp config appsettings set \
-  --name my-function-app \
-  --settings \
-    AzureWebJobsStorage="<接続文字列>"
-```
-
-**3. Azure Key Vault を使用（本番推奨）**
-
-- より高度なシークレット管理
-- アクセスログ・監査機能
-
----
-
-<div class="flex items-center gap-x-4">
-
-## ステップ 1: Storage Account の作成
-
-<div class="text-sm bg-blue-500/20 px-2 py-1 rounded mb-3">👥 共有可能</div>
-</div>
-
-それでは実際に Storage Account を作成し、コンテナと接続文字列を取得します。
-
-```bash
-# Storage Account作成（名前は世界で一意である必要があります）
-az storage account create \
-  --name mystorageacct20251007 \
-  --resource-group appservice-hands-on-rg \
-  --location japaneast \
-  --sku Standard_LRS
-
-# コンテナ作成（元画像用）
-az storage container create \
-  --name images \
-  --account-name mystorageacct20251007
-
-# コンテナ作成（サムネイル用）
-az storage container create \
-  --name thumbnails \
-  --account-name mystorageacct20251007
-
-# 接続文字列取得（後で使用するのでメモしておく）
-az storage account show-connection-string \
-  --name mystorageacct20251007 \
-  --resource-group appservice-hands-on-rg \
-  --query "connectionString" -o tsv
-```
-
-**💡 Tip:** 取得した接続文字列は後のステップで使用します。安全な場所に保存してください。
-
----
-
-## ステップ 2: Function App の作成
-
-Function App リソースを作成します。
-
-<div class="bg-orange-500/10 p-3 rounded mb-4 text-sm">
-<strong>👤 複数人での実施:</strong> Function Appも一意な名前が必要です（例: <code>my-function-app-tanaka-20251007</code>）
-</div>
-
-```bash
-# Function App作成（Python 3.12）
-az functionapp create \
-  --name my-function-app-20251007 \
-  --resource-group appservice-hands-on-rg \
-  --consumption-plan-location japaneast \
-  --runtime python \
-  --runtime-version 3.12 \
-  --functions-version 4 \
-  --storage-account mystorageacct20251007 \
-  --os-type Linux
-
-# 作成確認
-az functionapp list --output table
-```
-
-**💡 Tip:** Consumption Plan は従量課金で、使った分だけ支払います。Python 3.12 は Linux OS でのみ動作します。
-
----
-
-## ステップ 3: Blob Trigger 関数の作成
-
-ローカルで Function App プロジェクトを作成します。
-
-```bash
-# Azure Functions Core Toolsのインストール
-npm install -g azure-functions-core-tools@4
-
-# Python仮想環境の作成と有効化
-python3 -m venv .venv
-source .venv/bin/activate  # macOS/Linux
-# .venv\Scripts\activate  # Windows
-
-# Pythonプロジェクト作成（v2プログラミングモデル）
-func init MyFunctionApp --python --model V2
-cd MyFunctionApp
-
-# Blob Trigger関数を追加（対話形式）
-func new --name ThumbnailGenerator --template "Blob trigger"
-```
-
-**対話形式で以下を入力:**
-
-- **Container Path:** `images/{name}` （監視するコンテナとファイルパターン）
-- **Storage Account Connection String:** `AzureWebJobsStorage` （環境変数名）
-
-**💡 Tip:** Azure Functions Python v2 プログラミングモデルでは、デコレーターベースの簡潔な構文を使用します。
-
----
-
-## ローカル開発用の接続文字列設定
-
-`local.settings.json` に接続文字列を設定します。
-
-```json
-{
-  "IsEncrypted": false,
-  "Values": {
-    "AzureWebJobsStorage": "<ステップ1で取得した接続文字列をここに貼り付け>",
-    "FUNCTIONS_WORKER_RUNTIME": "python"
-  }
-}
-```
-
-**接続文字列の取得コマンド（再掲）:**
-
-```bash
-az storage account show-connection-string \
-  --name mystorageacct20251007 \
-  --resource-group appservice-hands-on-rg \
-  --query "connectionString" -o tsv
-```
-
-**⚠️ 重要:**
-
-- `local.settings.json` はローカル開発専用で、Azure にはデプロイされません
-- `.gitignore` に含まれているため、Git にコミットされません（セキュリティのため）
-- 本番環境では、Function App の環境変数として自動設定されます
-
----
-
-## ステップ 4-1: サムネイル生成ロジックの実装
-
-まず、Pillow ライブラリを`requirements.txt`に追加します。
-
-```txt
-# requirements.txt
-azure-functions
-Pillow
-```
-
-```bash
-# 依存関係をインストール
-pip install -r requirements.txt
-```
-
----
-
-## ステップ 4-2: サムネイル生成ロジックの実装
-
-次に、関数のコードを実装します（Python v2 プログラミングモデル）。
-
-```python
-# function_app.py
-import azure.functions as func
-import logging
-from PIL import Image
-from io import BytesIO
-
-app = func.FunctionApp()
-
-@app.blob_trigger(
-    arg_name="inputblob",
-    path="images/{name}",
-    connection="AzureWebJobsStorage"
-)
-@app.blob_output(
-    arg_name="outputblob",
-    path="thumbnails/{name}",
-    connection="AzureWebJobsStorage"
-)
-def ThumbnailGenerator(inputblob: func.InputStream, outputblob: func.Out[bytes]):
-    logging.info(f'Blob trigger processing: {inputblob.name}')
-
-    try:
-        # 画像を読み込み
-        image = Image.open(inputblob)
-
-        # サムネイル生成（幅200pxに縮小、アスペクト比維持）
-        image.thumbnail((200, 200), Image.Resampling.LANCZOS)
-
-        # BytesIOに保存
-        output = BytesIO()
-        image.save(output, format=image.format or 'JPEG')
-
-        # Output Bindingに設定
-        outputblob.set(output.getvalue())
-
-        logging.info('Thumbnail generated successfully')
-    except Exception as e:
-        logging.error(f'Error generating thumbnail: {e}')
-        raise
-```
-
-**💡 重要:** Python v2 プログラミングモデルでは、デコレーターを使ってトリガーと出力バインディングを定義します。
-
----
-
-## ステップ 5: デプロイとテスト
-
-Function App にデプロイして動作確認します。
-
-```bash
-# デプロイ（仮想環境が有効な状態で実行）
-func azure functionapp publish my-function-app-20251007
-
-# 画像をアップロードしてテスト
-az storage blob upload \
-  --account-name mystorageacct20251007 \
-  --container-name images \
-  --name test.jpg \
-  --file ./test.jpg
-
-# 数秒待ってからサムネイルを確認
-az storage blob list \
-  --account-name mystorageacct20251007 \
-  --container-name thumbnails \
-  --output table
-```
-
----
-
-## HTTP Trigger 関数の追加（オプション）
-
-API として呼び出せる関数を追加します。
-
-```bash
-# HTTP Trigger関数を追加（対話形式）
-func new --name HelloAPI --template "HTTP trigger"
-# デプロイ後にテスト
-curl "https://my-function-app-20251007.azurewebsites.net/api/HelloAPI?name=Azure"
-```
-
----
-
-## layout: center
-
-# ハンズオン ④ Application Insights
+# ハンズオン ③ Application Insights
 
 ログ監視を追加してアプリケーションを可視化
 
@@ -1939,8 +1505,8 @@ Azure Portal → Application Insights → Application map
 </div>
 
 ---
-
-## layout: center
+layout: center
+---
 
 # まとめ
 
@@ -1957,13 +1523,14 @@ Azure App Service 系サービス完全攻略
 
 - **Web Apps:** Next.js アプリのデプロイ
 - **API Apps:** Node.js Express API の構築
-- **Function Apps:** Blob Trigger でサムネイル生成
 - **Application Insights:** 監視と KQL クエリ分析
 
 ### ✅ 詳細を学んだサービス
 
 - **Mobile Apps:** モバイルバックエンド、認証・同期
 - **Web App for Containers:** Docker コンテナホスティング
+- **Azure Functions / Function Apps:** サーバーレス、イベント駆動
+  - Function App（実行環境）と Azure Functions（個別の関数コード）の関係性
 
 </div>
 <div>
@@ -2027,14 +1594,14 @@ Azure App Service 系サービス完全攻略
 
 用途に応じて最適なサービスを選択しましょう。
 
-| ユースケース          | 推奨サービス           | 理由                       |
-| --------------------- | ---------------------- | -------------------------- |
-| **Web サイト・SPA**   | Web Apps               | 常時稼働、簡単デプロイ     |
-| **REST API**          | API Apps               | CORS 設定、API 管理が容易  |
-| **モバイルアプリ BE** | Mobile Apps            | 認証、プッシュ通知の統合   |
-| **定期バッチ処理**    | Function Apps          | サーバーレス、従量課金     |
-| **マイクロサービス**  | Web App for Containers | コンテナベース、柔軟な構成 |
-| **監視・分析**        | Application Insights   | すべてのサービスに適用可能 |
+| ユースケース          | 推奨サービス                    | 理由                                 |
+| --------------------- | ------------------------------- | ------------------------------------ |
+| **Web サイト・SPA**   | Web Apps                        | 常時稼働、簡単デプロイ               |
+| **REST API**          | API Apps                        | CORS 設定、API 管理が容易            |
+| **モバイルアプリ BE** | Mobile Apps                     | 認証、プッシュ通知の統合             |
+| **定期バッチ処理**    | Azure Functions / Function Apps | サーバーレス、従量課金、イベント駆動 |
+| **マイクロサービス**  | Web App for Containers          | コンテナベース、柔軟な構成           |
+| **監視・分析**        | Application Insights            | すべてのサービスに適用可能           |
 
 ---
 
@@ -2073,8 +1640,8 @@ Azure App Service 系サービス完全攻略
 </div>
 
 ---
-
-## layout: center
+layout: center
+---
 
 # ありがとうございました！
 
