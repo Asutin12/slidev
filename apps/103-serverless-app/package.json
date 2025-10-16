@@ -1,0 +1,10 @@
+{
+  "name": "103-serverless-app",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build --base /103-serverless-app/ --out ../../dist/103-serverless-app",
+    "dev": "slidev --open",
+    "export": "slidev export --dark --output ../../dist/103-serverless-app.pdf"
+  }
+}
