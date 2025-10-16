@@ -1,0 +1,10 @@
+{
+  "name": "01-init",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build --base /01-init/ --out ../../dist/01-init",
+    "dev": "slidev --open",
+    "export": "slidev export --dark --output ../../dist/01-init.pdf"
+  }
+}

@@ -1,87 +1,177 @@
-# Slidev ハンズオン資料リポジトリ
+# Slidev Presentations - Monorepo
 
-このリポジトリは、[Slidev](https://sli.dev/) を用いて作成された様々なハンズオン資料を格納することを目的としています。各資料は、特定の技術やツールに関する実践的な学習コンテンツとして設計されています。
+このリポジトリは複数のSlidevプレゼンテーションを管理するモノレポ構成になっています。
 
-## プロジェクトの目的
-
-- **ハンズオン資料の集約:** さまざまな技術分野におけるハンズオン資料を一元的に管理します。
-- **学習体験の向上:** Slidev のインタラクティブな機能と視覚的な表現力を活用し、効果的な学習体験を提供します。
-- **Gemini CLI との連携:** 本リポジトリの Slidev 資料は、[Gemini CLI](https://github.com/google-gemini/gemini-cli) を活用して作成・管理されています。これにより、効率的な資料作成プロセスを実現しています。
-
-## 特徴
-
-- **Slidev ベース:** Markdown と Vue.js の知識があれば、簡単にスライドを作成・編集できます。
-- **インタラクティブなコンテンツ:** コードブロック、ライブデモ、埋め込みコンテンツなど、多様な形式の資料をサポートします。
-- **一貫したスタイル:** `docs/rules.md` に定義されたルールに従い、資料全体で統一されたデザインと構成を維持します。
-- **Gemini CLI による開発:** 資料の作成、更新、管理に Gemini CLI が利用されており、開発プロセスが効率化されています。
-
-## はじめに
-
-### 前提条件
-
-- Node.js (推奨 LTS バージョン)
-- bun (推奨) または npm/yarn
-
-### インストール
-
-```bash
-# リポジトリをクローン
-git clone https://github.com/your-username/slidev-hands-on.git
-cd slidev-hands-on/slidev
-
-# 依存関係をインストール
-bun install
-```
-
-### スライドの実行
-
-開発サーバーを起動し、ブラウザでスライドをプレビューします。
-
-```bash
-bun dev
-```
-
-### スライドのエクスポート
-
-PDF や SPA (Single Page Application) としてスライドをエクスポートできます。
-
-```bash
-# PDFとしてエクスポート
-bun export
-```
-
-## 新しいスライドの作成
-
-新しいハンズオン資料を作成する際は、`slidev/slides.md` をテンプレートとして使用し、`docs/rules.md` に記載されているスライド作成ルールを遵守してください。
-
-```bash
-# 新しいスライドファイルを作成（例: slidev/slides-new-topic.md）
-cp slidev/slides.md slidev/slides-new-topic.md
-```
-
-## プロジェクト構造
+## 📁 プロジェクト構造
 
 ```
 .
-├── README.md               # このREADMEファイル
-├── .git/                   # Gitリポジトリ
-└── slidev/                 # Slidevプロジェクトルート
-    ├── .gitignore
-    ├── .npmrc
-    ├── bun.lock
-    ├── netlify.toml
-    ├── package.json        # プロジェクトの依存関係とスクリプト
-    ├── README.md           # SlidevプロジェクトのREADME
-    ├── slides.md           # メインのスライドファイル
-    ├── style.css           # カスタムスタイル
-    ├── vercel.json
-    ├── components/         # カスタムVueコンポーネント
-    │   └── Counter.vue
-    ├── node_modules/       # 依存関係
-    ├── pages/              # ページ固有のMarkdownファイル
-    │   └── imported-slides.md
-    └── snippets/           # コードスニペット
-        └── external.ts
-    └── docs/               # ドキュメント関連
-        └── rules.md        # スライド作成ルール
+├── apps/               # 各スライドプロジェクト
+│   ├── 00-cursor/
+│   ├── 01-init/
+│   ├── 02-eks-hands-on/
+│   ├── 03-eks-automode-hands-on/
+│   ├── 04-todo-app/
+│   ├── 100-service-list/
+│   ├── 101-app-service/
+│   ├── 102-database/
+│   └── lt-00/
+├── packages/           # 共有パッケージ
+│   ├── templates/      # カスタムテンプレート
+│   └── theme/          # カスタムテーマ
+└── dist/               # ビルド出力先
 ```
+
+## 🚀 セットアップ
+
+依存関係のインストール：
+
+```bash
+pnpm install
+```
+
+## 🛠️ 開発
+
+### 特定のスライドを開発モードで起動
+
+```bash
+cd apps/01-init
+pnpm run dev
+```
+
+または、ルートディレクトリから：
+
+```bash
+pnpm run --filter 01-init dev
+```
+
+### 全スライドをビルド
+
+```bash
+pnpm run build
+```
+
+これは `pnpm run -r build` を実行し、すべてのワークスペースのビルドスクリプトを並列実行します。
+
+### PDFエクスポート
+
+全スライドをPDF化：
+
+```bash
+pnpm run export
+```
+
+特定のスライドだけをPDF化：
+
+```bash
+pnpm run --filter 01-init export
+```
+
+## 📤 Cloudflare Pages へのデプロイ
+
+### 方法1: GitHub経由で自動デプロイ（推奨）
+
+1. GitHubリポジトリにプッシュ
+2. [Cloudflare Dashboard](https://dash.cloudflare.com/) にログイン
+3. **Workers & Pages** → **Create application** → **Pages** → **Connect to Git**
+4. リポジトリを選択して以下の設定を行う：
+
+**ビルド設定:**
+
+- **Framework preset**: `None`
+- **Build command**: `pnpm run build`
+- **Build output directory**: `dist`
+- **Root directory**: `/`（デフォルト）
+
+**環境変数:**
+
+- `NODE_VERSION`: `20`
+
+5. **Save and Deploy** をクリック
+
+### 方法2: Wrangler CLI でデプロイ
+
+```bash
+# ログイン
+pnpm wrangler login
+
+# ビルド
+pnpm run build
+
+# デプロイ
+pnpm wrangler pages deploy dist --project-name=your-project-name
+```
+
+## 🌐 デプロイ後のアクセス
+
+デプロイが完了すると、以下のようにアクセスできます：
+
+- 各スライド: `https://your-project.pages.dev/00-cursor/` など
+
+## 📝 新しいスライドの追加
+
+1. 新しいディレクトリを作成：
+
+```bash
+cd apps
+mkdir 05-my-new-slide
+cd 05-my-new-slide
+```
+
+2. `package.json` を作成：
+
+```json
+{
+  "name": "05-my-new-slide",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build --base /05-my-new-slide/ --out ../../dist/05-my-new-slide",
+    "dev": "slidev --open",
+    "export": "slidev export --dark --output ../../dist/05-my-new-slide.pdf"
+  }
+}
+```
+
+3. `slides.md` を作成：
+
+```markdown
+---
+theme: default
+title: My New Slide
+---
+
+# My New Slide
+
+スライドコンテンツをここに書く
+```
+
+4. 開発モードで確認：
+
+```bash
+pnpm run dev
+```
+
+5. ビルド：
+
+```bash
+cd ../..
+pnpm run build
+```
+
+## 🔧 技術スタック
+
+- [Slidev](https://sli.dev/) - プレゼンテーションフレームワーク
+- [pnpm](https://pnpm.io/) - パッケージマネージャー
+- [Cloudflare Pages](https://pages.cloudflare.com/) - ホスティングプラットフォーム
+- [Vue 3](https://vuejs.org/) - UI フレームワーク
+
+## 💡 pnpmワークスペースのメリット
+
+- **効率的な依存関係管理**: 共通の依存関係は1回だけインストール
+- **並列ビルド**: `pnpm run -r build` で全プロジェクトを並列ビルド
+- **フィルター機能**: `--filter` オプションで特定のプロジェクトのみを操作
+
+## 📄 ライセンス
+
+このプロジェクトは MIT ライセンスの下で公開されています。

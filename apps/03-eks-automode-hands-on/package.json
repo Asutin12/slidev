@@ -1,0 +1,10 @@
+{
+  "name": "03-eks-automode-hands-on",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build --base /03-eks-automode-hands-on/ --out ../../dist/03-eks-automode-hands-on",
+    "dev": "bunx slidev --open",
+    "export": "bunx slidev export --dark --output ../../dist/03-eks-automode-hands-on.pdf"
+  }
+}

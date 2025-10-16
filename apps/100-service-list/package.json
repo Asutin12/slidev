@@ -1,0 +1,10 @@
+{
+  "name": "100-service-list",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build --base /100-service-list/ --out ../../dist/100-service-list",
+    "dev": "slidev --open",
+    "export": "slidev export --dark --output ../../dist/100-service-list.pdf"
+  }
+}

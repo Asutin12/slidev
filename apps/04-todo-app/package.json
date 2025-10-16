@@ -1,0 +1,10 @@
+{
+  "name": "04-todo-app",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build --base /04-todo-app/ --out ../../dist/04-todo-app",
+    "dev": "slidev --open",
+    "export": "slidev export --dark --output ../../dist/04-todo-app.pdf"
+  }
+}

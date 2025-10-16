@@ -1,0 +1,60 @@
+/**
+ * Code Highlighting Styles for Gaudiy Theme
+ */
+
+/* Shiki Code Highlighting */
+.shiki {
+  background: var(--gaudiy-cream-light) !important;
+  border: 1px solid var(--gaudiy-border);
+  border-radius: var(--gaudiy-radius-sm);
+  padding: var(--gaudiy-spacing-md);
+  overflow-x: auto;
+}
+
+.shiki code {
+  font-family: var(--gaudiy-font-mono);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Line numbers */
+.shiki .line-number {
+  color: var(--gaudiy-text-light);
+  padding-right: var(--gaudiy-spacing-sm);
+  user-select: none;
+}
+
+/* Highlighted lines */
+.shiki .highlighted {
+  background: rgba(255, 140, 66, 0.1);
+  border-left: 3px solid var(--gaudiy-orange);
+  padding-left: var(--gaudiy-spacing-sm);
+}
+
+/* Inline code */
+.slidev-code-wrapper {
+  margin: var(--gaudiy-spacing-md) 0;
+}
+
+/* Code diff */
+.diff .add {
+  background: rgba(76, 175, 80, 0.1);
+  border-left: 3px solid #4caf50;
+}
+
+.diff .remove {
+  background: rgba(244, 67, 54, 0.1);
+  border-left: 3px solid #f44336;
+}
+
+/* Code focus */
+.has-focus .line:not(.focus) {
+  opacity: 0.4;
+  filter: blur(0.5px);
+  transition: all 0.3s ease;
+}
+
+.has-focus:hover .line {
+  opacity: 1;
+  filter: blur(0);
+}

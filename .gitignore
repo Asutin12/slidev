@@ -1,1 +1,7 @@
-eks-hands-on
+node_modules
+bun.lockb
+pnpm-lock.yaml
+dist
+.next
+02-eks-hands-on
+.DS_Store

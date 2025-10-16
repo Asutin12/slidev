@@ -1,0 +1,144 @@
+# Example instances using the ResourceGraphDefinitions
+# These demonstrate how end-users would interact with the simplified APIs
+
+---
+# Simple Web Application Instance
+apiVersion: v1alpha1
+kind: WebApplication
+metadata:
+  name: frontend-app
+  namespace: default
+spec:
+  name: frontend-app
+  image: nginx:latest
+  replicas: 3
+  port: 80
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+  ingress:
+    enabled: true
+    host: frontend.example.com
+    path: "/"
+
+---
+# Another Web Application with different configuration
+apiVersion: v1alpha1
+kind: WebApplication
+metadata:
+  name: api-server
+  namespace: default
+spec:
+  name: api-server
+  image: node:18-alpine
+  replicas: 5
+  port: 3000
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+  ingress:
+    enabled: true
+    host: api.example.com
+    path: "/api"
+
+---
+# Data Processing Application Instance
+apiVersion: v1alpha1
+kind: DataProcessor
+metadata:
+  name: daily-analytics
+  namespace: default
+spec:
+  name: daily-analytics
+  processor:
+    image: my-registry/data-processor:v1.2.0
+    schedule: "0 2 * * *" # Daily at 2 AM
+    timeout: 7200 # 2 hours timeout
+  storage:
+    size: 50Gi
+    storageClass: gp3
+  database:
+    enabled: true
+    image: postgres:15
+    storageSize: 100Gi
+  monitoring:
+    enabled: true
+    retentionDays: 90
+
+---
+# Batch Processing Application Instance
+apiVersion: v1alpha1
+kind: DataProcessor
+metadata:
+  name: weekly-reports
+  namespace: default
+spec:
+  name: weekly-reports
+  processor:
+    image: my-registry/report-generator:v2.1.0
+    schedule: "0 0 * * 0" # Weekly on Sunday
+    timeout: 10800 # 3 hours timeout
+  storage:
+    size: 20Gi
+    storageClass: gp3
+  database:
+    enabled: true
+    image: postgres:15
+    storageSize: 50Gi
+  monitoring:
+    enabled: true
+    retentionDays: 180
+
+---
+# Simple Web Application without Ingress
+apiVersion: v1alpha1
+kind: WebApplication
+metadata:
+  name: internal-service
+  namespace: default
+spec:
+  name: internal-service
+  image: alpine:latest
+  replicas: 2
+  port: 8080
+  resources:
+    requests:
+      cpu: 25m
+      memory: 32Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+  ingress:
+    enabled: false # Internal service only
+
+---
+# High-performance Web Application
+apiVersion: v1alpha1
+kind: WebApplication
+metadata:
+  name: performance-app
+  namespace: default
+spec:
+  name: performance-app
+  image: my-registry/high-perf-app:latest
+  replicas: 10
+  port: 8000
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: 2
+      memory: 4Gi
+  ingress:
+    enabled: true
+    host: perf.example.com
+    path: "/"

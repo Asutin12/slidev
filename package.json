@@ -1,0 +1,22 @@
+{
+  "name": "slidev-monorepo",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "pnpm run -r build"
+  },
+  "packageManager": "pnpm@10.12.4",
+  "devDependencies": {
+    "@slidev/cli": "^52.2.5",
+    "@slidev/theme-default": "latest",
+    "@slidev/theme-seriph": "latest",
+    "playwright-chromium": "^1.48.2",
+    "typescript": "^5.7.2",
+    "unocss": "^0.65.2",
+    "vite": "^6.0.3",
+    "vue": "^3.5.21"
+  },
+  "resolutions": {
+    "twoslash-vue": "0.2.7"
+  }
+}

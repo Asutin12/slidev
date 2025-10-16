@@ -1,0 +1,52 @@
+{
+  "name": "slidev-theme-gaudiy",
+  "version": "0.1.0",
+  "description": "A warm and modern Slidev theme with cream background and orange accents",
+  "keywords": [
+    "slidev-theme",
+    "slidev"
+  ],
+  "license": "MIT",
+  "author": "Masuda Asuto",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/slidev-theme-gaudiy"
+  },
+  "scripts": {
+    "dev": "slidev example.md",
+    "build": "slidev build example.md",
+    "export": "slidev export example.md",
+    "screenshot": "slidev export example.md --format png"
+  },
+  "dependencies": {
+    "@slidev/theme-default": "latest"
+  },
+  "devDependencies": {
+    "@iconify-json/carbon": "^1.2.13",
+    "@iconify-json/mdi": "^1.2.3",
+    "@slidev/cli": "^0.50.0"
+  },
+  "slidev": {
+    "colorSchema": "light",
+    "highlighter": "shiki",
+    "default": {
+      "aspectRatio": "16/9",
+      "canvasWidth": 980,
+      "fonts": {
+        "sans": "Noto Sans JP",
+        "serif": "Noto Serif JP",
+        "mono": "Fira Code"
+      },
+      "highlighter": "shiki",
+      "lineNumbers": false,
+      "monaco": false,
+      "download": true,
+      "info": false,
+      "transition": "fade"
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "slidev": ">=0.48.0"
+  }
+}

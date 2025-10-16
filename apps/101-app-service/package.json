@@ -1,0 +1,10 @@
+{
+  "name": "101-app-service",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build --base /101-app-service/ --out ../../dist/101-app-service",
+    "dev": "slidev --open",
+    "export": "slidev export --dark --output ../../dist/101-app-service.pdf"
+  }
+}

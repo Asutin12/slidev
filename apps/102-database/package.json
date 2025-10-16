@@ -1,0 +1,10 @@
+{
+  "name": "102-database",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build --base /102-database/ --out ../../dist/102-database",
+    "dev": "slidev --open",
+    "export": "slidev export --dark --output ../../dist/102-database.pdf"
+  }
+}

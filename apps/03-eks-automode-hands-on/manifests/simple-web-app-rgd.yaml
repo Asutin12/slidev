@@ -1,0 +1,151 @@
+# ResourceGraphDefinition for Simple Web Application
+# This RGD creates a simplified API for deploying web applications with EKS Auto Mode
+apiVersion: kro.run/v1alpha1
+kind: ResourceGraphDefinition
+metadata:
+  name: web-application
+  namespace: default
+spec:
+  # Define the API schema that users will interact with
+  schema:
+    apiVersion: v1alpha1
+    kind: WebApplication
+    spec:
+      # Required application name
+      name: string | required=true description="Application name"
+
+      # Container image with default
+      image: string | default="nginx:latest" description="Container image to deploy"
+
+      # Replica count with validation
+      replicas: integer | default=3 minimum=1 maximum=50 description="Number of replicas"
+
+      # Port configuration
+      port: integer | default=80 minimum=1 maximum=65535 description="Container port"
+
+      # Resource requirements
+      resources:
+        requests:
+          cpu: string | default="100m" description="CPU request"
+          memory: string | default="128Mi" description="Memory request"
+        limits:
+          cpu: string | default="500m" description="CPU limit"
+          memory: string | default="512Mi" description="Memory limit"
+
+      # Ingress configuration
+      ingress:
+        enabled: boolean | default=false description="Enable ingress"
+        host: string | default="example.com" description="Ingress hostname"
+        path: string | default="/" description="Ingress path"
+
+    # Status fields automatically populated by Kro
+    status:
+      # Deployment status
+      availableReplicas: ${deployment.status.availableReplicas}
+      readyReplicas: ${deployment.status.readyReplicas}
+      conditions: ${deployment.status.conditions}
+
+      # Service endpoint
+      serviceClusterIP: ${service.spec.clusterIP}
+
+      # Ingress status (when enabled)
+      ingressEndpoint: ${ingress.status.loadBalancer.ingress[0].hostname}
+
+  # Define the Kubernetes resources to be created
+  resources:
+    # Deployment resource
+    - id: deployment
+      template:
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: ${schema.spec.name}
+          labels:
+            app: ${schema.spec.name}
+            managed-by: kro
+        spec:
+          replicas: ${schema.spec.replicas}
+          selector:
+            matchLabels:
+              app: ${schema.spec.name}
+          template:
+            metadata:
+              labels:
+                app: ${schema.spec.name}
+            spec:
+              containers:
+                - name: ${schema.spec.name}
+                  image: ${schema.spec.image}
+                  ports:
+                    - containerPort: ${schema.spec.port}
+                      protocol: TCP
+                  resources:
+                    requests:
+                      cpu: ${schema.spec.resources.requests.cpu}
+                      memory: ${schema.spec.resources.requests.memory}
+                    limits:
+                      cpu: ${schema.spec.resources.limits.cpu}
+                      memory: ${schema.spec.resources.limits.memory}
+                  livenessProbe:
+                    httpGet:
+                      path: /
+                      port: ${schema.spec.port}
+                    initialDelaySeconds: 30
+                    periodSeconds: 10
+                  readinessProbe:
+                    httpGet:
+                      path: /
+                      port: ${schema.spec.port}
+                    initialDelaySeconds: 5
+                    periodSeconds: 5
+
+    # Service resource
+    - id: service
+      template:
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: ${schema.spec.name}-service
+          labels:
+            app: ${schema.spec.name}
+            managed-by: kro
+        spec:
+          selector:
+            app: ${schema.spec.name}
+          ports:
+            - protocol: TCP
+              port: 80
+              targetPort: ${schema.spec.port}
+          type: ClusterIP
+
+    # Ingress resource (conditional)
+    - id: ingress
+      includeWhen:
+        - ${schema.spec.ingress.enabled}
+      template:
+        apiVersion: networking.k8s.io/v1
+        kind: Ingress
+        metadata:
+          name: ${schema.spec.name}-ingress
+          labels:
+            app: ${schema.spec.name}
+            managed-by: kro
+          annotations:
+            # AWS Load Balancer Controller annotations for EKS
+            kubernetes.io/ingress.class: alb
+            alb.ingress.kubernetes.io/scheme: internet-facing
+            alb.ingress.kubernetes.io/target-type: ip
+            alb.ingress.kubernetes.io/healthcheck-path: /
+            alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+        spec:
+          rules:
+            - host: ${schema.spec.ingress.host}
+              http:
+                paths:
+                  - path: ${schema.spec.ingress.path}
+                    pathType: Prefix
+                    backend:
+                      service:
+                        name: ${service.metadata.name}
+                        port:
+                          number: 80

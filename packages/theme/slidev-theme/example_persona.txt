@@ -1,0 +1,52 @@
+---
+layout: persona
+---
+
+::header::
+
+# What is Proto Persona?
+プロトペルソナ
+
+::illustration::
+
+<div style="text-align: center; width: 100%;">
+  <div style="width: 150px; height: 150px; margin: 0 auto 1.5rem; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #f0e8dc;">
+    <div style="font-size: 5rem;">👤</div>
+  </div>
+  <p style="margin: 0.8rem 0; font-size: 0.75rem; color: #999; line-height: 1.5;">コーザー調査を大々的にするまでもないが<br/>本格的な登場の初心者を記述する</p>
+  <strong>TETSUTA-SAN</strong>
+</div>
+
+::section1::
+
+### BEHAVIORS
+
+- 毎朝9時から読書の習慣を身につけると誓い手帳に記している
+- Yahoo!を使い慣れているので優先的に使いたいと思う
+- 1日30分は読書時間を持ちたいと考えている
+- 自分で持ち歩けることが重要であり携帯性が欲しい
+- Webサイト・雑誌・新聞記事などを読む
+- 購買は手堅く慎重に行い衝動買いはしない
+- 新しい情報をさがすときはまず調べる
+
+::section2::
+
+### FACTS
+
+- iPhone
+- 結婚記念日
+- Skype Name で 1 名の友人
+- 趣味数千曲を聴いている
+
+#### Skype Name の使い方のチュートリアル
+現在も録音されていた
+
+::section3::
+
+### NEEDS & GOALS
+
+- 自分の時間を大事にしたいのでPCならやさしい操作が希望します
+- 画像などで視覚的にできると良い
+- 仕事の動作を決めてくれるものが良い
+- 説明の必要性があり・データの見やすい工夫をしているところがよい
+- 多くの利用者と情報を共有したい

@@ -1,0 +1,553 @@
+/* Slidev用 モノトーンスタイル */
+
+/* ベースカラー定義 */
+:root {
+  --slidev-color-primary: #ffffff;
+  --slidev-color-secondary: #000000;
+  --slidev-color-accent: #666666;
+  --slidev-color-bg: #0a0a0a;
+  --slidev-color-surface: #1a1a1a;
+  --slidev-color-border: #333333;
+  --slidev-gradient-primary: linear-gradient(
+    135deg,
+    #000000 0%,
+    #333333 50%,
+    #666666 100%
+  );
+  --slidev-gradient-accent: linear-gradient(45deg, #ffffff 0%, #cccccc 100%);
+  --slidev-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
+  --slidev-shadow-strong: 0 20px 60px rgba(255, 255, 255, 0.1);
+}
+
+/* スライド全体の背景 */
+.slidev-layout {
+  background: radial-gradient(ellipse at center, #1a1a1a 0%, #000000 100%);
+  color: var(--slidev-color-primary);
+  font-family:
+    "SF Pro Display",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 背景のパーティクルエフェクト */
+.slidev-layout::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(255, 255, 255, 0.02) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(255, 255, 255, 0.02) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 40%,
+      rgba(255, 255, 255, 0.01) 0%,
+      transparent 50%
+    );
+  animation: float 20s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+}
+
+/* タイトルスライド */
+.slidev-layout.cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+}
+
+.slidev-layout.cover h1 {
+  font-size: 4rem;
+  font-weight: 200;
+  letter-spacing: -2px;
+  margin-bottom: 2rem;
+  background: var(--slidev-gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  animation: slideInUp 1.2s ease-out;
+}
+
+.slidev-layout.cover h1::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  width: 100px;
+  height: 2px;
+  background: var(--slidev-gradient-accent);
+  transform: translateX(-50%);
+  animation: expandWidth 1.5s ease-out 0.5s both;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes expandWidth {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100px;
+  }
+}
+
+/* 通常のスライド */
+.slidev-layout.default {
+  padding: 4rem;
+  background: var(--slidev-color-bg);
+}
+
+/* 見出し */
+h1,
+h2,
+h3 {
+  color: var(--slidev-color-primary);
+  font-weight: 300;
+  letter-spacing: -1px;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-size: 3rem;
+  border-left: 4px solid transparent;
+  border-image: var(--slidev-gradient-accent) 1;
+  padding-left: 2rem;
+  animation: fadeInLeft 0.8s ease-out;
+}
+
+h2 {
+  font-size: 2.2rem;
+  color: var(--slidev-color-accent);
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 1px;
+  background: var(--slidev-gradient-accent);
+  animation: slideInLeft 0.8s ease-out 0.3s both;
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    width: 0;
+  }
+  to {
+    width: 60px;
+  }
+}
+
+/* パラグラフ */
+p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #cccccc;
+  margin-bottom: 1.5rem;
+  animation: fadeIn 0.8s ease-out 0.4s both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* リスト */
+ul,
+ol {
+  margin: 2rem 0;
+  padding-left: 0;
+}
+
+li {
+  list-style: none;
+  margin: 1rem 0;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 3px solid transparent;
+  border-image: var(--slidev-gradient-accent) 1;
+  border-radius: 0 8px 8px 0;
+  position: relative;
+  transition: all 0.3s ease;
+  animation: slideInRight 0.6s ease-out calc(var(--i, 0) * 0.1s) both;
+}
+
+li:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(10px);
+}
+
+li::before {
+  content: "→";
+  position: absolute;
+  left: 0.5rem;
+  color: var(--slidev-color-accent);
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+li:hover::before {
+  transform: translateX(5px);
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* コードブロック */
+pre,
+code {
+  background: var(--slidev-color-surface);
+  border: 1px solid var(--slidev-color-border);
+  border-radius: 12px;
+  font-family:
+    "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace;
+}
+
+pre {
+  padding: 2rem;
+  margin: 2rem 0;
+  overflow-x: auto;
+  box-shadow: var(--slidev-shadow);
+  position: relative;
+}
+
+pre::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--slidev-gradient-accent);
+  animation: expandWidth 1s ease-out;
+}
+
+code {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.9em;
+}
+
+/* 引用 */
+blockquote {
+  border-left: 4px solid transparent;
+  border-image: var(--slidev-gradient-accent) 1;
+  padding: 1.5rem 2rem;
+  margin: 2rem 0;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  position: relative;
+}
+
+blockquote::before {
+  content: '"';
+  font-size: 4rem;
+  color: var(--slidev-color-accent);
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  opacity: 0.3;
+}
+
+/* テーブル */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  background: var(--slidev-color-surface);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--slidev-shadow);
+}
+
+th,
+td {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid var(--slidev-color-border);
+}
+
+th {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  font-weight: 600;
+  color: var(--slidev-color-primary);
+}
+
+tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* 画像 */
+img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: var(--slidev-shadow-strong);
+  transition: transform 0.3s ease;
+}
+
+img:hover {
+  transform: scale(1.02);
+}
+
+/* ボタン・リンク */
+a {
+  color: var(--slidev-color-primary);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  border-image: var(--slidev-gradient-accent) 1;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+a:hover {
+  color: var(--slidev-color-accent);
+  transform: translateY(-2px);
+}
+
+/* スライド番号 */
+.slidev-page-indicator {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--slidev-color-primary);
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* プログレスバー */
+.slidev-progress {
+  background: var(--slidev-gradient-accent);
+  height: 3px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  transition: width 0.3s ease;
+}
+
+/* 特殊レイアウト：2カラム */
+.slidev-layout.two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  padding: 4rem;
+}
+
+.slidev-layout.two-cols .col {
+  animation: fadeInUp 0.8s ease-out calc(var(--i, 0) * 0.2s) both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .slidev-layout.cover h1 {
+    font-size: 2.5rem;
+  }
+
+  .slidev-layout.default {
+    padding: 2rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .slidev-layout.two-cols {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+/* アニメーション用クラス */
+.animate-in {
+  animation: slideInFromBottom 0.8s ease-out both;
+}
+
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 強調表示 */
+.highlight {
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  color: var(--slidev-color-primary);
+  font-weight: 600;
+}
+
+/* カード風レイアウト */
+.card {
+  background: var(--slidev-color-surface);
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 1rem 0;
+  box-shadow: var(--slidev-shadow);
+  border: 1px solid var(--slidev-color-border);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--slidev-shadow-strong);
+}
+
+/* ホバーリフト効果 */
+.hover-lift {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--slidev-shadow-strong);
+}
+
+/* カラーボーダー */
+.border-l-4 {
+  border-left-width: 4px;
+}
+
+.border-yellow-500 {
+  border-left-color: #eab308;
+}
+
+.border-green-500 {
+  border-left-color: #22c55e;
+}
+
+.border-blue-500 {
+  border-left-color: #3b82f6;
+}
+
+.border-red-500 {
+  border-left-color: #ef4444;
+}
+
+/* テキストカラー */
+.text-yellow-400 {
+  color: #facc15;
+}
+
+.text-green-400 {
+  color: #4ade80;
+}
+
+.text-blue-400 {
+  color: #60a5fa;
+}
+
+.text-red-400 {
+  color: #f87171;
+}
+
+/* スペーシング */
+.space-y-6 > * + * {
+  margin-top: 1.5rem;
+}
+
+.space-y-2 > * + * {
+  margin-top: 0.5rem;
+}
+
+/* 最大幅 */
+.max-w-2xl {
+  max-width: 42rem;
+}

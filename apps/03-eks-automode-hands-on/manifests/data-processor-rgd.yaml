@@ -1,0 +1,249 @@
+# ResourceGraphDefinition for Data Processing Application
+# This RGD demonstrates more complex resource orchestration with batch jobs and services
+apiVersion: kro.run/v1alpha1
+kind: ResourceGraphDefinition
+metadata:
+  name: data-processor
+  namespace: default
+spec:
+  # Define the API schema for data processing applications
+  schema:
+    apiVersion: v1alpha1
+    kind: DataProcessor
+    spec:
+      # Application identification
+      name: string | required=true description="Data processor name"
+
+      # Processing configuration
+      processor:
+        image: string | required=true description="Processor container image"
+        schedule: string | default="0 */6 * * *" description="Cron schedule for batch processing"
+        timeout: integer | default=3600 description="Job timeout in seconds"
+
+      # Storage configuration
+      storage:
+        size: string | default="10Gi" description="Storage size for data"
+        storageClass: string | default="gp3" description="Storage class"
+
+      # Database configuration
+      database:
+        enabled: boolean | default=true description="Enable database"
+        image: string | default="postgres:15" description="Database image"
+        storageSize: string | default="20Gi" description="Database storage size"
+
+      # Monitoring and alerting
+      monitoring:
+        enabled: boolean | default=true description="Enable monitoring"
+        retentionDays: integer | default=30 description="Metrics retention period"
+
+    # Status fields
+    status:
+      # Job status
+      lastJobStatus: ${cronjob.status.conditions[0].type}
+      lastJobTime: ${cronjob.status.lastScheduleTime}
+
+      # Database status
+      databaseReady: ${database-deployment.status.readyReplicas}
+
+      # Storage status
+      storageStatus: ${data-pvc.status.phase}
+
+      # Overall health
+      healthStatus: "Healthy" # Can be enhanced with CEL expressions
+
+  # Custom types definition
+  types:
+    ResourceRequirements:
+      cpu: string | default="100m"
+      memory: string | default="256Mi"
+
+  # Define the resources to be managed
+  resources:
+    # Persistent Volume Claim for data storage
+    - id: data-pvc
+      template:
+        apiVersion: v1
+        kind: PersistentVolumeClaim
+        metadata:
+          name: ${schema.spec.name}-data
+          labels:
+            app: ${schema.spec.name}
+            component: storage
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: ${schema.spec.storage.size}
+          storageClassName: ${schema.spec.storage.storageClass}
+
+    # ConfigMap for application configuration
+    - id: config
+      template:
+        apiVersion: v1
+        kind: ConfigMap
+        metadata:
+          name: ${schema.spec.name}-config
+          labels:
+            app: ${schema.spec.name}
+            component: config
+        data:
+          DATABASE_URL: postgresql://postgres:postgres@${schema.spec.name}-db:5432/dataprocessor
+          STORAGE_PATH: /data
+          LOG_LEVEL: INFO
+
+    # Database deployment (conditional)
+    - id: database-deployment
+      includeWhen:
+        - ${schema.spec.database.enabled}
+      template:
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: ${schema.spec.name}-db
+          labels:
+            app: ${schema.spec.name}
+            component: database
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              app: ${schema.spec.name}
+              component: database
+          template:
+            metadata:
+              labels:
+                app: ${schema.spec.name}
+                component: database
+            spec:
+              containers:
+                - name: postgres
+                  image: ${schema.spec.database.image}
+                  env:
+                    - name: POSTGRES_DB
+                      value: dataprocessor
+                    - name: POSTGRES_USER
+                      value: postgres
+                    - name: POSTGRES_PASSWORD
+                      value: postgres
+                  ports:
+                    - containerPort: 5432
+                  volumeMounts:
+                    - name: db-data
+                      mountPath: /var/lib/postgresql/data
+                  resources:
+                    requests:
+                      cpu: 200m
+                      memory: 512Mi
+                    limits:
+                      cpu: 500m
+                      memory: 1Gi
+              volumes:
+                - name: db-data
+                  persistentVolumeClaim:
+                    claimName: ${schema.spec.name}-db-data
+
+    # Database PVC (conditional)
+    - id: database-pvc
+      includeWhen:
+        - ${schema.spec.database.enabled}
+      template:
+        apiVersion: v1
+        kind: PersistentVolumeClaim
+        metadata:
+          name: ${schema.spec.name}-db-data
+          labels:
+            app: ${schema.spec.name}
+            component: database-storage
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: ${schema.spec.database.storageSize}
+          storageClassName: ${schema.spec.storage.storageClass}
+
+    # Database service (conditional)
+    - id: database-service
+      includeWhen:
+        - ${schema.spec.database.enabled}
+      template:
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: ${schema.spec.name}-db
+          labels:
+            app: ${schema.spec.name}
+            component: database
+        spec:
+          selector:
+            app: ${schema.spec.name}
+            component: database
+          ports:
+            - port: 5432
+              targetPort: 5432
+          type: ClusterIP
+
+    # CronJob for data processing
+    - id: cronjob
+      template:
+        apiVersion: batch/v1
+        kind: CronJob
+        metadata:
+          name: ${schema.spec.name}-processor
+          labels:
+            app: ${schema.spec.name}
+            component: processor
+        spec:
+          schedule: ${schema.spec.processor.schedule}
+          jobTemplate:
+            spec:
+              activeDeadlineSeconds: ${schema.spec.processor.timeout}
+              template:
+                metadata:
+                  labels:
+                    app: ${schema.spec.name}
+                    component: processor-job
+                spec:
+                  restartPolicy: OnFailure
+                  containers:
+                    - name: processor
+                      image: ${schema.spec.processor.image}
+                      envFrom:
+                        - configMapRef:
+                            name: ${config.metadata.name}
+                      volumeMounts:
+                        - name: data-storage
+                          mountPath: /data
+                      resources:
+                        requests:
+                          cpu: 500m
+                          memory: 1Gi
+                        limits:
+                          cpu: 2
+                          memory: 4Gi
+                  volumes:
+                    - name: data-storage
+                      persistentVolumeClaim:
+                        claimName: ${data-pvc.metadata.name}
+
+    # ServiceMonitor for Prometheus (conditional)
+    - id: service-monitor
+      includeWhen:
+        - ${schema.spec.monitoring.enabled}
+      template:
+        apiVersion: monitoring.coreos.com/v1
+        kind: ServiceMonitor
+        metadata:
+          name: ${schema.spec.name}-monitor
+          labels:
+            app: ${schema.spec.name}
+            component: monitoring
+        spec:
+          selector:
+            matchLabels:
+              app: ${schema.spec.name}
+          endpoints:
+            - port: metrics
+              interval: 30s
+              path: /metrics

@@ -1,0 +1,198 @@
+/* ベースカラーとフォント */
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap");
+
+:root {
+  --slidev-theme-background: #fcf9f2;
+  --slidev-theme-slide-bg: #fff2dcff;
+  --slidev-theme-text-color: #444;
+  --slidev-theme-header-color: #444;
+  --slidev-theme-header-line: #444;
+  --slidev-theme-primary: #007acc;
+}
+
+body {
+  background: var(--slidev-theme-background);
+  font-family: "IBM Plex Mono", "M PLUS Rounded 1c", monospace, sans-serif;
+}
+
+#slideshow,
+.slidev-layout {
+  background: var(--slidev-theme-background);
+  border-radius: 64px;
+  margin: 16px auto;
+  box-shadow: none;
+  max-height: 95%;
+  max-width: 95%;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(11, 11, 11, 0.05);
+  padding-top: 16px;
+}
+
+.slidev-page {
+  background: var(--slidev-theme-slide-bg);
+}
+
+.slidev-page img {
+  max-width: 100%;
+  max-height: 300px;
+}
+
+/* タイトル */
+h1,
+h2,
+h3,
+h4 {
+  font-family: "IBM Plex Mono", monospace;
+  color: var(--slidev-theme-header-color);
+  font-weight: 400;
+  margin: 0;
+}
+
+h1 {
+  font-size: 5rem;
+  line-height: 1;
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid var(--slidev-theme-header-line);
+}
+
+h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5em;
+}
+
+/* その他 */
+p,
+ul,
+ol,
+li {
+  font-family: "IBM Plex Mono", monospace;
+  color: var(--slidev-theme-text-color);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+pre,
+code {
+  font-family: "IBM Plex Mono", monospace;
+  background: #f3f1eb;
+  border-radius: 8px;
+  padding: 0.2em 0.5em;
+}
+
+/* 画像の角丸 */
+img {
+  border-radius: 24px;
+}
+
+/* スクロール可能なスライド */
+.scrollable {
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+/* リストスタイル調整 */
+ul li {
+  margin-bottom: 0.3em;
+}
+
+/* 強調表示 */
+strong {
+  color: var(--slidev-theme-primary);
+  font-weight: 700;
+}
+
+/* カスタムユーティリティクラス */
+.text-gradient {
+  background: linear-gradient(45deg, #007acc, #00d4ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+/* アニメーション用クラス */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* グリッドレイアウト用 */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* カラーユーティリティ */
+.text-blue {
+  color: #3b82f6;
+}
+.text-green {
+  color: #10b981;
+}
+.text-orange {
+  color: #f59e0b;
+}
+.text-red {
+  color: #ef4444;
+}
+.text-purple {
+  color: #8b5cf6;
+}
+
+/* レイアウト別のタイトルサイズ調整 */
+.slidev-layout[class*="section"] h1 {
+  font-size: 3rem !important;
+}
+
+.slidev-layout[class*="center"] h1 {
+  font-size: 2.5rem !important;
+}
+
+/* リンクのスタイル */
+a {
+  color: var(--slidev-theme-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

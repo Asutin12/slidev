@@ -1,0 +1,333 @@
+/**
+ * Slidev Theme Gaudiy
+ * A warm and modern theme with cream background and orange accents
+ */
+
+:root {
+  /* カラーパレット - 画像に合わせた色 */
+  --gaudiy-cream: #fef9f0;
+  --gaudiy-cream-light: #fefbf5;
+  --gaudiy-cream-dark: #f8f3ea;
+  --gaudiy-orange: #ff9548;
+  --gaudiy-orange-light: #ffb347;
+  --gaudiy-orange-dark: #ff8c42;
+  --gaudiy-yellow: #fdb44b;
+  --gaudiy-text-primary: #333333;
+  --gaudiy-text-secondary: #666666;
+  --gaudiy-text-light: #999999;
+  --gaudiy-border: #f0e8dc;
+  --gaudiy-shadow: rgba(0, 0, 0, 0.05);
+
+  /* フォント */
+  --gaudiy-font-sans:
+    "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, sans-serif;
+  --gaudiy-font-serif: "Noto Serif JP", Georgia, serif;
+  --gaudiy-font-mono: "Fira Code", "Courier New", monospace;
+
+  /* スペーシング */
+  --gaudiy-spacing-xs: 0.5rem;
+  --gaudiy-spacing-sm: 1rem;
+  --gaudiy-spacing-md: 1.5rem;
+  --gaudiy-spacing-lg: 2rem;
+  --gaudiy-spacing-xl: 3rem;
+
+  /* ボーダー半径 */
+  --gaudiy-radius-sm: 0.5rem;
+  --gaudiy-radius-md: 1rem;
+  --gaudiy-radius-lg: 1.5rem;
+}
+
+/* 基本スタイル */
+#slideshow {
+  background: var(--gaudiy-cream);
+  color: var(--gaudiy-text-primary);
+  font-family: var(--gaudiy-font-sans);
+}
+
+.slidev-layout {
+  background: var(--gaudiy-cream);
+  padding: var(--gaudiy-spacing-xl);
+}
+
+/* タイポグラフィ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--gaudiy-text-primary);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: var(--gaudiy-spacing-md);
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: var(--gaudiy-text-primary);
+  margin-bottom: var(--gaudiy-spacing-md);
+}
+
+h2 {
+  font-size: 2rem;
+  color: var(--gaudiy-text-primary);
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+h3 {
+  font-size: 1.75rem;
+  color: var(--gaudiy-orange-dark);
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+h6 {
+  font-size: 1rem;
+  color: var(--gaudiy-text-secondary);
+}
+
+p {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--gaudiy-text-primary);
+  margin-bottom: var(--gaudiy-spacing-md);
+}
+
+/* リンク */
+a {
+  color: var(--gaudiy-orange);
+  text-decoration: none;
+  border-bottom: 2px solid var(--gaudiy-orange-light);
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: var(--gaudiy-orange-dark);
+  border-bottom-color: var(--gaudiy-orange-dark);
+}
+
+/* リスト */
+ul,
+ol {
+  margin-left: var(--gaudiy-spacing-lg);
+  margin-bottom: var(--gaudiy-spacing-md);
+}
+
+li {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  margin-bottom: var(--gaudiy-spacing-xs);
+  color: var(--gaudiy-text-primary);
+}
+
+ul li::marker {
+  color: var(--gaudiy-orange);
+  font-size: 1.2em;
+}
+
+ol li::marker {
+  color: var(--gaudiy-orange);
+  font-weight: 700;
+}
+
+/* コードブロック */
+pre,
+code {
+  font-family: var(--gaudiy-font-mono);
+  background: var(--gaudiy-cream-light);
+  border: 1px solid var(--gaudiy-border);
+  border-radius: var(--gaudiy-radius-sm);
+}
+
+pre {
+  padding: var(--gaudiy-spacing-md);
+  margin-bottom: var(--gaudiy-spacing-md);
+  overflow-x: auto;
+}
+
+code {
+  padding: 0.2em 0.4em;
+  font-size: 0.9em;
+  color: var(--gaudiy-orange-dark);
+}
+
+pre code {
+  padding: 0;
+  font-size: 0.95rem;
+  color: var(--gaudiy-text-primary);
+}
+
+/* 引用 */
+blockquote {
+  border-left: 4px solid var(--gaudiy-orange);
+  padding-left: var(--gaudiy-spacing-md);
+  margin: var(--gaudiy-spacing-md) 0;
+  font-style: italic;
+  color: var(--gaudiy-text-secondary);
+  background: var(--gaudiy-cream-light);
+  padding: var(--gaudiy-spacing-md);
+  border-radius: var(--gaudiy-radius-sm);
+}
+
+/* テーブル */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: var(--gaudiy-spacing-md);
+  background: var(--gaudiy-cream-light);
+  border-radius: var(--gaudiy-radius-sm);
+  overflow: hidden;
+}
+
+thead {
+  background: var(--gaudiy-orange);
+  color: white;
+}
+
+th,
+td {
+  padding: var(--gaudiy-spacing-sm);
+  text-align: left;
+  border-bottom: 1px solid var(--gaudiy-border);
+}
+
+th {
+  font-weight: 600;
+}
+
+tbody tr:hover {
+  background: var(--gaudiy-cream-dark);
+}
+
+/* 画像 */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--gaudiy-radius-md);
+  box-shadow: none;
+}
+
+/* ボタン・インタラクティブ要素 */
+.button {
+  background: var(--gaudiy-orange);
+  color: white;
+  padding: var(--gaudiy-spacing-sm) var(--gaudiy-spacing-lg);
+  border: none;
+  border-radius: var(--gaudiy-radius-sm);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background: var(--gaudiy-orange-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--gaudiy-shadow);
+}
+
+/* 強調テキスト */
+strong,
+b {
+  color: var(--gaudiy-orange-dark);
+  font-weight: 700;
+}
+
+em,
+i {
+  color: var(--gaudiy-text-secondary);
+  font-style: italic;
+}
+
+/* 水平線 */
+hr {
+  border: none;
+  border-top: 2px solid var(--gaudiy-orange-light);
+  margin: var(--gaudiy-spacing-xl) 0;
+}
+
+/* バッジ・ラベル */
+.badge {
+  display: inline-block;
+  background: var(--gaudiy-orange);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--gaudiy-radius-sm);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* カード */
+.card {
+  background: var(--gaudiy-cream-light);
+  padding: var(--gaudiy-spacing-lg);
+  border-radius: var(--gaudiy-radius-md);
+  border: 1px solid var(--gaudiy-border);
+  box-shadow: none;
+  margin-bottom: var(--gaudiy-spacing-md);
+}
+
+/* アラート */
+.alert {
+  padding: var(--gaudiy-spacing-md);
+  border-radius: var(--gaudiy-radius-sm);
+  margin-bottom: var(--gaudiy-spacing-md);
+  border-left: 4px solid var(--gaudiy-orange);
+  background: var(--gaudiy-cream-light);
+}
+
+.alert-warning {
+  border-left-color: #ffa500;
+  background: #fff8dc;
+}
+
+.alert-success {
+  border-left-color: #4caf50;
+  background: #f0f8f0;
+}
+
+.alert-info {
+  border-left-color: #2196f3;
+  background: #f0f8ff;
+}
+
+/* ページネーション・ナビゲーション */
+.slidev-page-number {
+  color: var(--gaudiy-orange);
+  font-weight: 600;
+}
+
+/* アニメーション */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* 印刷スタイル */
+@media print {
+  #slideshow {
+    background: white;
+  }
+
+  .slidev-layout {
+    background: white;
+  }
+}

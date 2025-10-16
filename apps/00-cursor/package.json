@@ -1,0 +1,10 @@
+{
+  "name": "00-cursor",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build --base /00-cursor/ --out ../../dist/00-cursor",
+    "dev": "slidev --open",
+    "export": "slidev export --dark --output ../../dist/00-cursor.pdf"
+  }
+}
