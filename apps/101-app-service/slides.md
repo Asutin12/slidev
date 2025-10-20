@@ -448,7 +448,6 @@ export MY_WEB_NAME=
 # API Appsの名前
 export MY_API_NAME=
 
-
 # Application Insightsの名前
 export APP_INSIGHTS_NAME=
 
@@ -661,11 +660,19 @@ az webapp browse \
 
 ---
 
-## ステップ 3-1: Next.jsアプリのデプロイ
+## ステップ 3: Next.jsアプリのデプロイ
 
 今回はNext.jsでアプリケーションをビルド結果をZIPにしたものがあるのでそれをダウンロードし、デプロイしていきます。
+ダウンロードしたzipを解凍し、package.jsonをREADME.mdの通り修正してください。
 
 ```bash
+# cdで該当のフォルダに移動後
+npm install
+npm run build
+
+# デプロイ用のZIPファイル作成
+zip -r ./my-nextjs-app.zip .next public package.json node_modules
+
 # ZIPデプロイ（--src-pathはダウンロードした箇所と現在のカレントディレクトリによる）
 az webapp deploy \
   --name $MY_WEB_NAME \
@@ -681,7 +688,7 @@ az webapp browse \
 
 ---
 
-## ステップ 5: カスタムドメインと HTTPS（参考知識）
+## ステップ 4: カスタムドメインと HTTPS（参考知識）
 
 <div class="bg-blue-500/10 p-3 rounded mb-4 text-sm">
 <strong>💡 参考情報:</strong> このステップはハンズオンでは実施しません。独自ドメインを持っている場合や、本番環境で使用する際の参考知識として確認してください。
@@ -774,6 +781,44 @@ Node.js/Go の REST API をデプロイして GET/POST 実行
 
 ---
 
+## Local Git デプロイとは？
+
+App Service へのデプロイ方法の一つで、Git を使ってソースコードを直接プッシュする方式です。
+
+<div class="grid grid-cols-2 gap-8 pt-6">
+<div>
+
+### 🔄 仕組み
+
+1. **App Service が Git リポジトリを提供**
+   - 各 Web App に専用の Git URL が発行される
+2. **ローカルから Git Push**
+   - `git push azure main` でデプロイ
+3. **自動ビルド・デプロイ**
+   - App Service 側で自動的にビルドして起動
+
+</div>
+<div>
+
+### 📊 他のデプロイ方法との比較
+
+| 方式 | 特徴 |
+|------|------|
+| **Local Git** | Git でバージョン管理しながらデプロイ |
+| **ZIP デプロイ** | ビルド済みファイルをアップロード |
+| **GitHub Actions** | CI/CD パイプラインで自動化 |
+| **Azure DevOps** | エンタープライズ向け CI/CD |
+
+</div>
+</div>
+
+<div class="mt-3">
+
+**💡 メリット:** Git の履歴管理とデプロイを統合でき、ロールバックも簡単
+</div>
+
+---
+
 ## ステップ 1: API Apps の作成とデプロイ
 
 <div class="bg-orange-500/10 p-3 rounded mb-4 text-sm">
@@ -790,18 +835,23 @@ az webapp create \
   --plan webapp-plan \
   --runtime "NODE:22-lts"
 
+# Local Git デプロイを有効化
+GIT_URL=$(az webapp deployment source config-local-git \
+  --name $MY_API_NAME \
+  --resource-group $RESOURCE_GROUP \
+  --query url -o tsv)
+
 # package install
 npm install
 
-# デプロイ用のZIPファイル作成
-zip -r api-app.zip server.js package.json node_modules/
+# Git リモートを登録
+git init
+git remote add azure $GIT_URL
 
-# ZIPデプロイ（新しいコマンド）
-az webapp deploy \
-  --name $MY_API_NAME \
-  --resource-group $RESOURCE_GROUP \
-  --src-path api-app.zip \
-  --type zip
+# コードをpushしてデプロイ
+git add .
+git commit -m "first deploy"
+git push azure main
 
 # デプロイ完了後、動作確認
 curl https://$MY_API_NAME.azurewebsites.net/api/hello
