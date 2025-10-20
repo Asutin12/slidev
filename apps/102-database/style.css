@@ -52,6 +52,12 @@ body {
   margin-bottom: 0.3em;
   font-weight: bold;
 }
+.slidev-layout td,
+.slidev-layout th {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  padding-left: 0.3rem;
+}
 
 /* タイトル */
 h1,
@@ -100,4 +106,9 @@ code {
 /* 画像の角丸 */
 img {
   border-radius: 24px;
+}
+
+table {
+  font-size: 0.75rem;
+  line-height: 1rem;
 }
