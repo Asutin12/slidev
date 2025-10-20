@@ -670,14 +670,16 @@ az webapp browse \
 npm install
 npm run build
 
+# package.jsonの修正し再度build
+
 # デプロイ用のZIPファイル作成
-zip -r ./my-nextjs-app.zip .next public package.json node_modules
+zip -r ./application.zip .next public package.json node_modules
 
 # ZIPデプロイ（--src-pathはダウンロードした箇所と現在のカレントディレクトリによる）
 az webapp deploy \
   --name $MY_WEB_NAME \
   --resource-group $RESOURCE_GROUP \
-  --src-path ./my-nextjs-app.zip \
+  --src-path ./application.zip \
   --type zip
 
 # デプロイ完了後、ブラウザで開く
@@ -836,22 +838,24 @@ az webapp create \
   --runtime "NODE:22-lts"
 
 # Local Git デプロイを有効化
-GIT_URL=$(az webapp deployment source config-local-git \
+az webapp deployment source config-local-git \
   --name $MY_API_NAME \
   --resource-group $RESOURCE_GROUP \
-  --query url -o tsv)
+  --query url -o tsv
 
 # package install
 npm install
 
 # Git リモートを登録
 git init
-git remote add azure $GIT_URL
+git remote add azure <your-az-url>
 
 # コードをpushしてデプロイ
 git add .
 git commit -m "first deploy"
 git push azure main
+# 上記で引っかかったら下記コマンド
+git push azure main:master
 
 # デプロイ完了後、動作確認
 curl https://$MY_API_NAME.azurewebsites.net/api/hello
