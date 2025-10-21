@@ -1,0 +1,10 @@
+{
+  "name": "104-network",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build --base /104-network/ --out ../../dist/104-network",
+    "dev": "slidev --open",
+    "export": "slidev export --dark --output ../../dist/104-network.pdf"
+  }
+}
