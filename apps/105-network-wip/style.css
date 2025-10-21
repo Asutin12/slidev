@@ -52,8 +52,7 @@ body {
   margin-bottom: 0.3em;
   font-weight: bold;
 }
-.slidev-layout td,
-.slidev-layout th {
+.slidev-layout td, .slidev-layout th {
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
   padding-left: 0.3rem;
