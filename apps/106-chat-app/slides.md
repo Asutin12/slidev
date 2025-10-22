@@ -321,19 +321,19 @@ graph LR
 </div>
 
 ---
-src: ./pages/01-intro.md
+src: ./pages/00-intro.md
 ---
 ---
-src: ./pages/02-signalr-service.md
+src: ./pages/01-signalr-service.md
 ---
 ---
-src: ./pages/03-function-app.md
+src: ./pages/02-function-app.md
 ---
 ---
-src: ./pages/04-static-web-app.md
+src: ./pages/03-static-web-app.md
 ---
 ---
-src: ./pages/06-test.md
+src: ./pages/04-test.md
 ---
 ---
 src: ./pages/99-summary.md
