@@ -50,12 +50,10 @@ Azure Database サービスを実践的に学び、クラウドでのデータ�
   - 高可用性構成
 
 ---
-
-## layout: center
+layout: center
+---
 
 # Azure Database サービス とは？
-
-<br>
 
 **データベースを手軽に、そして安全に運用するための<br>フルマネージド・データベースサービス**
 
@@ -67,7 +65,6 @@ Azure Database サービスは、さまざまなデータベースをマネー�
 インフラストラクチャの管理から解放され、開発者はデータモデリングとアプリケーション開発に集中できます。
 
 <div class="grid grid-cols-2 gap-x-8 gap-y-4 pt-6">
-
 <div class="bg-gray-500/10 p-4 rounded">
 
 #### 🚀 簡単セットアップ
@@ -75,7 +72,6 @@ Azure Database サービスは、さまざまなデータベースをマネー�
 数分でデータベースをプロビジョニング。複雑な設定や構成は不要で、すぐに使い始められます。
 
 </div>
-
 <div class="bg-gray-500/10 p-4 rounded">
 
 #### 🔧 自動管理
@@ -83,7 +79,6 @@ Azure Database サービスは、さまざまなデータベースをマネー�
 バックアップ、パッチ適用、高可用性設定など、面倒な運用タスクはAzureが自動で実施します。
 
 </div>
-
 <div class="bg-gray-500/10 p-4 rounded">
 
 #### 📈 柔軟なスケーリング
@@ -91,7 +86,6 @@ Azure Database サービスは、さまざまなデータベースをマネー�
 ワークロードに応じて、コンピューティングとストレージを独立してスケール可能。コストを最適化できます。
 
 </div>
-
 <div class="bg-gray-500/10 p-4 rounded">
 
 #### 🔒 高いセキュリティ
@@ -99,7 +93,6 @@ Azure Database サービスは、さまざまなデータベースをマネー�
 組み込みのセキュリティ機能、暗号化、脅威検出、コンプライアンス対応で安心してデータを保管できます。
 
 </div>
-
 </div>
 
 ---
@@ -109,7 +102,6 @@ Azure Database サービスは、さまざまなデータベースをマネー�
 Azure が提供する主要なデータベースサービスを理解し、用途に応じた使い分けを学びます。
 
 <div class="grid grid-cols-3 gap-4 pt-6 text-xs">
-
 <div class="bg-blue-500/10 p-3 rounded">
 
 #### 🔷 Azure SQL Database（ハンズオン）
@@ -119,7 +111,6 @@ Azure が提供する主要なデータベースサービスを理解し、用�
 <strong>特徴：</strong>SQL Server互換、自動チューニング、高可用性
 </div>
 </div>
-
 <div class="bg-green-500/10 p-3 rounded">
 
 #### 🌐 Azure Cosmos DB（ハンズオン）
@@ -129,7 +120,6 @@ Azure が提供する主要なデータベースサービスを理解し、用�
 <strong>特徴：</strong>マルチモデル対応、低レイテンシ、自動スケール
 </div>
 </div>
-
 <div class="bg-purple-500/10 p-3 rounded">
 
 #### 🐘 Azure Database for PostgreSQL（ハンズオン）
@@ -139,7 +129,6 @@ Azure が提供する主要なデータベースサービスを理解し、用�
 <strong>特徴：</strong>完全互換、拡張機能サポート、高可用性
 </div>
 </div>
-
 <div class="bg-orange-500/10 p-3 rounded">
 
 #### 🐬 Azure Database for MySQL（参考）
@@ -149,7 +138,6 @@ Azure が提供する主要なデータベースサービスを理解し、用�
 <strong>特徴：</strong>完全互換、自動バックアップ、スケーラブル
 </div>
 </div>
-
 <div class="bg-red-500/10 p-3 rounded">
 
 #### ⚡ Azure Cache for Redis（参考）
@@ -159,7 +147,6 @@ Azure が提供する主要なデータベースサービスを理解し、用�
 <strong>特徴：</strong>高速アクセス、永続化オプション、クラスタリング
 </div>
 </div>
-
 <div class="bg-cyan-500/10 p-3 rounded">
 
 #### 📊 Azure Synapse Analytics（参考）
@@ -169,7 +156,6 @@ Azure が提供する主要なデータベースサービスを理解し、用�
 <strong>特徴：</strong>統合分析、無制限スケール、Apache Spark統合
 </div>
 </div>
-
 </div>
 
 ---
@@ -183,7 +169,7 @@ Azure が提供する主要なデータベースサービスを理解し、用�
 - Microsoft SQL Server をベースとしたフルマネージドRDBMS
 - 高可用性、自動バックアップ、自動チューニングを標準装備
 
-**主な特徴：**
+**主な特徴**
 
 - SQL Server互換（T-SQL、ストアドプロシージャ、トリガー）
 - 自動チューニングとパフォーマンス推奨機能
@@ -196,7 +182,7 @@ Azure が提供する主要なデータベースサービスを理解し、用�
 - 既存のSQL Serverアプリケーションのクラウド移行
 - ミッションクリティカルなビジネスアプリケーション
 
-**比較：**
+**比較**
 
 - **vs オンプレミスSQL Server**: 管理不要、自動スケール、高可用性が標準
 - **vs RDS for SQL Server**: より深いAzure統合、高度な管理機能
@@ -213,7 +199,7 @@ Azure が提供する主要なデータベースサービスを理解し、用�
 - グローバルに分散されたマルチモデルNoSQLデータベース
 - 複数のAPIモデル（SQL、MongoDB、Cassandra、Gremlin、Table）をサポート
 
-**主な特徴：**
+**主な特徴**
 
 - ターンキーのグローバル分散（複数リージョンへの自動レプリケーション）
 - 一桁ミリ秒のレイテンシ保証
@@ -226,7 +212,7 @@ Azure が提供する主要なデータベースサービスを理解し、用�
 - リアルタイムアプリケーション（IoT、ゲーム、モバイル）
 - 柔軟なスキーマが必要なアプリケーション
 
-**比較：**
+**比較**
 
 - **vs DynamoDB**: より柔軟な一貫性モデル、マルチモデル対応
 - **vs MongoDB Atlas**: Azure統合が深く、グローバル分散が簡単
@@ -243,7 +229,7 @@ Azure が提供する主要なデータベースサービスを理解し、用�
 - オープンソースPostgreSQLのフルマネージドサービス
 - コミュニティ版PostgreSQLとの完全互換性
 
-**主な特徴：**
+**主な特徴**
 
 - PostgreSQL拡張機能のサポート（PostGIS、pgvector等）
 - 自動バックアップと99.99%の可用性SLA
@@ -256,15 +242,15 @@ Azure が提供する主要なデータベースサービスを理解し、用�
 - 地理空間データの処理（PostGIS）
 - 高度なデータ型や機能が必要なアプリケーション
 
-**比較：**
+**比較**
 
 - **vs オンプレミスPostgreSQL**: 管理不要、自動バックアップ、スケーラビリティ
 - **vs RDS for PostgreSQL**: Azureエコシステムとの統合が強力
 - **vs Azure SQL Database**: オープンソース、PostgreSQL固有機能が必要な場合
 
 ---
-
-## layout: center
+layout: center
+---
 
 # 前提条件
 
@@ -345,7 +331,7 @@ az account set --subscription "YOUR_SUBSCRIPTION_ID"
 ```bash
 # このハンズオン用のリソースグループを作成
 az group create \
-  --name database-hands-on-rg \
+  --name rg-database-handson \
   --location japaneast
 
 # 作成されたことを確認
@@ -424,10 +410,10 @@ bun --version
 </div>
 
 ---
+layout: center
+---
 
-## layout: center
-
-# ハンズオン① Azure SQL Database
+# ハンズオン①
 
 マネージドRDBMSでトランザクション処理を実装
 
@@ -478,16 +464,16 @@ bun --version
 
 まず、SQL Database を配置するための論理サーバーを作成します。
 
-<div class="bg-orange-500/10 p-3 rounded mb-4 text-sm">
-<strong>👤 複数人での実施:</strong> SQL Serverの名前は世界で一意である必要があります。（例: <code>mydbserver-tanaka-20251015</code>）
-</div>
-
 ```bash
+export MY_SQL_SERVER="taroserver20251009"
+export RESOURCE_GROUP="rg-database-handson"
+export LOCATION="japaneast"
+
 # SQL Server（論理サーバー）を作成
 az sql server create \
-  --name mydbserver20251009 \
-  --resource-group database-hands-on-rg \
-  --location japaneast \
+  --name $MY_SQL_SERVER \
+  --resource-group $RESOURCE_GROUP \
+  --location $LOCATION \
   --admin-user sqladmin \
   --admin-password 'YourPassword123!'
 
@@ -495,13 +481,11 @@ az sql server create \
 az sql server list --output table
 ```
 
-<br>
-
 **SQL Server とは？**
 
 - 複数のSQL Databaseを配置できる**論理的なコンテナ**
 - 認証情報、ファイアウォールルール、監査設定を管理
-- グローバルで一意な名前が必要（例: `mydbserver20251009`）
+- グローバルで一意な名前が必要（例: `taroserver20251009`）
 
 **💡 Tip:** パスワードは大文字、小文字、数字、記号を含む複雑なものを設定してください。
 
@@ -512,23 +496,23 @@ az sql server list --output table
 SQL Server上にデータベースを作成します。
 
 ```bash
+export MY_DB="ProductsDB"
+
 # SQL Database を作成（Basic プラン）
 az sql db create \
-  --resource-group database-hands-on-rg \
-  --server mydbserver20251009 \
-  --name ProductsDB \
+  --resource-group $RESOURCE_GROUP \
+  --server $MY_SQL_SERVER \
+  --name $MY_DB \
   --service-objective Basic
 
 # 作成されたデータベースを確認
 az sql db list \
-  --resource-group database-hands-on-rg \
-  --server mydbserver20251009 \
+  --resource-group $RESOURCE_GROUP \
+  --server $MY_SQL_SERVER \
   --output table
 ```
 
-<br>
-
-**サービスレベルについて:**
+**サービスレベルについて**
 
 - **Basic**: 開発・テスト向け（最大2GB）
 - **Standard**: 本番環境向け（最大1TB）
@@ -547,16 +531,16 @@ MY_IP=$(curl -s ifconfig.me)
 
 # ファイアウォールルールを追加
 az sql server firewall-rule create \
-  --resource-group database-hands-on-rg \
-  --server mydbserver20251009 \
+  --resource-group $RESOURCE_GROUP \
+  --server $MY_SQL_SERVER \
   --name AllowMyIP \
   --start-ip-address $MY_IP \
   --end-ip-address $MY_IP
 
 # ルールを確認
 az sql server firewall-rule list \
-  --resource-group database-hands-on-rg \
-  --server mydbserver20251009 \
+  --resource-group $RESOURCE_GROUP \
+  --server $MY_SQL_SERVER \
   --output table
 ```
 
@@ -579,13 +563,13 @@ Azure Data StudioまたはAzure Portalからデータベースに接続します
 # 接続文字列を取得
 az sql db show-connection-string \
   --client ado.net \
-  --name ProductsDB \
-  --server mydbserver20251009
+  --name $MY_DB \
+  --server $MY_SQL_SERVER
 ```
 
 **接続情報:**
 
-- **Server**: `mydbserver20251009.database.windows.net`
+- **Server**: `taroserver20251009.database.windows.net`
 - **Database**: `ProductsDB`
 - **User**: `sqladmin`
 - **Password**: `YourPassword123!`
@@ -602,7 +586,7 @@ az sql db show-connection-string \
 
 <br>
 
-または、Azure Data Studioで接続：
+または、Azure Data Studioで接続
 
 - 新しい接続を作成
 - サーバー名とクレデンシャルを入力
@@ -641,40 +625,19 @@ SELECT * FROM Products;
 
 ---
 
-## ステップ6: パフォーマンス監視
-
-Azure PortalでQuery Performance Insightを確認します。
-
-**Query Performance Insight の活用:**
-
-1. Azure Portal → SQL databases → ProductsDB
-2. 「Query Performance Insight」を選択
-3. 実行されたクエリのパフォーマンスを確認
-   - 実行時間が長いクエリ
-   - リソース消費が多いクエリ
-   - 頻繁に実行されるクエリ
-
-**自動チューニング:**
-
-- Azure SQL Databaseは自動でインデックスを推奨・作成
-- 「自動チューニング」セクションで推奨事項を確認
-- パフォーマンスの自動最適化を有効化可能
-
----
-
-## ステップ7: サーバーレスオプション（参考知識）
+## ステップ6: サーバーレスオプション（参考知識）
 
 <div class="bg-blue-500/10 p-3 rounded mb-4 text-sm">
 <strong>💡 参考情報:</strong> サーバーレスコンピューティング層は、間欠的な使用パターンに最適です。使用量に応じて自動的にスケーリングし、使用した分だけ課金されます。
 </div>
 
-**サーバーレスデータベースの作成:**
+**サーバーレスデータベースの作成**
 
 ```bash
 # サーバーレスオプションでデータベースを作成
 az sql db create \
-  --resource-group database-hands-on-rg \
-  --server mydbserver20251009 \
+  --resource-group $RESOURCE_GROUP \
+  --server $MY_SQL_SERVER \
   --name ServerlessDB \
   --compute-model Serverless \
   --edition GeneralPurpose \
@@ -684,17 +647,17 @@ az sql db create \
   --auto-pause-delay 60
 ```
 
-**メリット:**
+**メリット**
 
 - 使用していない時間は自動的に一時停止（課金停止）
 - 必要に応じて自動再開とスケール
 - コスト効率的（開発・テスト環境に最適）
 
 ---
+layout: center
+---
 
-## layout: center
-
-# ハンズオン② Azure Cosmos DB
+# ハンズオン②
 
 グローバル分散NoSQLデータベースを構築
 
@@ -743,23 +706,21 @@ az sql db create \
 
 Cosmos DBアカウントを作成します。
 
-<div class="bg-orange-500/10 p-3 rounded mb-4 text-sm">
-<strong>👤 複数人での実施:</strong> Cosmos DBアカウントの名前は世界で一意である必要があります。例: <code>mycosmosdb-tanaka-20251015</code>）
-</div>
-
 ```bash
+export MY_COSMOS_DB="tarocosmosdb20251009"
+
 # Cosmos DBアカウントを作成（SQL API）
 az cosmosdb create \
-  --name mycosmosdb20251009 \
-  --resource-group database-hands-on-rg \
-  --locations regionName=japaneast failoverPriority=0 \
+  --name $MY_COSMOS_DB \
+  --resource-group $RESOURCE_GROUP \
+  --locations regionName=$LOCATION failoverPriority=0 \
   --default-consistency-level Session
 
 # 作成されたアカウントを確認
 az cosmosdb list --output table
 ```
 
-**API の選択:**
+**API の選択**
 
 - **SQL API**: 最も一般的、SQL風のクエリ言語
 - **MongoDB API**: MongoDBアプリケーションとの互換性
@@ -778,21 +739,19 @@ az cosmosdb list --output table
 ```bash
 # データベースを作成
 az cosmosdb sql database create \
-  --account-name mycosmosdb20251009 \
-  --resource-group database-hands-on-rg \
-  --name ProductsDB
+  --account-name $MY_COSMOS_DB \
+  --resource-group $RESOURCE_GROUP \
+  --name $MY_DB
 
 # コンテナを作成（パーティションキー: /category）
 az cosmosdb sql container create \
-  --account-name mycosmosdb20251009 \
-  --resource-group database-hands-on-rg \
-  --database-name ProductsDB \
+  --account-name $MY_COSMOS_DB \
+  --resource-group $RESOURCE_GROUP \
+  --database-name $MY_DB \
   --name Products \
   --partition-key-path "/category" \
   --throughput 400
 ```
-
-<br>
 
 **パーティションキーの重要性:**
 
@@ -809,20 +768,20 @@ Cosmos DBへの接続に必要な情報を取得します。
 ```bash
 # 接続文字列を取得
 az cosmosdb keys list \
-  --name mycosmosdb20251009 \
-  --resource-group database-hands-on-rg \
+  --name $MY_COSMOS_DB \
+  --resource-group $RESOURCE_GROUP \
   --type connection-strings
 
 # プライマリキーを取得
 az cosmosdb keys list \
-  --name mycosmosdb20251009 \
-  --resource-group database-hands-on-rg \
+  --name $MY_COSMOS_DB \
+  --resource-group $RESOURCE_GROUP \
   --type keys
 ```
 
 **接続情報:**
 
-- **Endpoint**: `https://mycosmosdb20251009.documents.azure.com:443/`
+- **Endpoint**: `https://tarocosmosdb20251009.documents.azure.com:443/`
 - **Primary Key**: `<取得したキー>`
 
 <br>
@@ -835,9 +794,9 @@ az cosmosdb keys list \
 
 Azure PortalのData Explorerでデータを操作します。
 
-**ドキュメントの作成:**
+**ドキュメントの作成**
 
-1. Azure Portal → Cosmos DB accounts → mycosmosdb20251009
+1. Azure Portal → Cosmos DB accounts → tarocosmosdb20251009
 2. 「Data Explorer」を選択
 3. ProductsDB → Products → 「New Item」
 
@@ -856,7 +815,7 @@ Azure PortalのData Explorerでデータを操作します。
 
 ## ステップ4-2: Azure Portalからのクエリ実行
 
-**クエリの実行:**
+**クエリの実行**
 
 ```sql
 -- すべてのドキュメントを取得
@@ -882,33 +841,38 @@ Azure Portal以外からもデータ操作できることを確認します。
 ```bash
 # Cloud Shellを起動し、Azure CLIでクエリを実行
 az cosmosdb sql container query \
-  --account-name mycosmosdb20251009 \
-  --resource-group database-hands-on-rg \
-  --database-name ProductsDB \
+  --account-name $MY_COSMOS_DB \
+  --resource-group $RESOURCE_GROUP \
+  --database-name $MY_DB \
   --name Products \
   --query-text "SELECT * FROM c"
 ```
 
 **方法2: FastAPIでREST APIを作成して実際に叩く**
 
-まず、接続情報を取得します：
+まず、接続情報を取得します
 
 ```bash
 # エンドポイントとキーを取得して環境変数に設定
-export COSMOS_ENDPOINT=$(az cosmosdb show --name mycosmosdb20251009 \
-  --resource-group database-hands-on-rg --query documentEndpoint -o tsv)
+export COSMOS_ENDPOINT=$(az cosmosdb show --name $MY_COSMOS_DB \
+  --resource-group $RESOURCE_GROUP --query documentEndpoint -o tsv)
 
-export COSMOS_KEY=$(az cosmosdb keys list --name mycosmosdb20251009 \
-  --resource-group database-hands-on-rg --query primaryMasterKey -o tsv)
+export COSMOS_KEY=$(az cosmosdb keys list --name $MY_COSMOS_DB \
+  --resource-group $RESOURCE_GROUP --query primaryMasterKey -o tsv)
 ```
 
 ---
 
 ## ステップ5-2: プログラムからのデータ操作と検証
 
-FastAPIアプリケーションを作成します：
+FastAPIアプリケーションを作成します
 
-```python
+```bash
+mkdir database-handson
+cd database-handson
+
+# api application作成
+cat > app.py << 'EOF'
 # app.py
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
@@ -988,13 +952,14 @@ def delete_product(product_id: str, category: str):
         return {"message": "Product deleted"}
     except:
         raise HTTPException(status_code=404, detail="Product not found")
+EOF
 ```
 
 ---
 
 ## ステップ5-3: エンドポイントを実際に叩く
 
-**セットアップと起動:**
+**セットアップと起動**
 
 ```bash
 # 仮想環境
@@ -1012,7 +977,7 @@ uvicorn app:app --reload --port 8000
 
 サーバー起動後、別のターミナルでcurlコマンドを実行します。
 
-**サーバーの動作確認:**
+**サーバーの動作確認**
 
 ```bash
 curl http://localhost:8000/
@@ -1023,7 +988,7 @@ curl http://localhost:8000/
 
 ## ステップ5-4: エンドポイントを実際に叩く
 
-**1. 商品の作成（POST）:**
+**1. 商品の作成（POST）**
 
 ```bash
 curl -X POST http://localhost:8000/products \
@@ -1038,17 +1003,17 @@ curl -X POST http://localhost:8000/products \
   }'
 ```
 
-**2. 商品一覧の取得（GET）:**
+**2. 商品一覧の取得（GET）**
 
 ```bash
 # すべての商品を取得
 curl http://localhost:8000/products
 
 # Electronicsカテゴリのみ
-curl http://localhost:8000/products?category=Electronics
+curl "http://localhost:8000/products?category=Electronics"
 ```
 
-**3. 特定の商品を取得（GET）:**
+**3. 特定の商品を取得（GET）**
 
 ```bash
 curl "http://localhost:8000/products/prod-001?category=Electronics"
@@ -1058,7 +1023,7 @@ curl "http://localhost:8000/products/prod-001?category=Electronics"
 
 ## ステップ5-5: CRUD操作の続き
 
-**4. 商品の更新（PUT）:**
+**4. 商品の更新（PUT）**
 
 ```bash
 curl -X PUT "http://localhost:8000/products/prod-001?category=Electronics" \
@@ -1073,40 +1038,20 @@ curl -X PUT "http://localhost:8000/products/prod-001?category=Electronics" \
   }'
 ```
 
-**5. 商品の削除（DELETE）:**
+**5. 商品の削除（DELETE）**
 
 ```bash
 curl -X DELETE "http://localhost:8000/products/prod-001?category=Electronics"
 ```
 
-**6. Swagger UIでインタラクティブテスト:**
+**6. Swagger UIでインタラクティブテスト**
 
 ブラウザで `http://localhost:8000/docs` を開くと、Swagger UIが表示されます。
 ここから直接APIをテストできます！
 
 ---
 
-## ステップ5-6: Azure Portalでの検証
-
-API操作後、Azure Portalで変更を確認します。
-
-**検証手順:**
-
-1. **Azure Portal → Cosmos DB → Data Explorer**
-2. **ProductsDB → Products → Items**
-3. 「Refresh」で最新データを表示
-
-**確認ポイント:**
-
-- POST で作成した `prod-001` が表示される
-- PUT で更新された価格と商品名
-- DELETE で削除されたことを確認
-
-**💡 Tip:** Swagger UI (`/docs`) を使えば、ブラウザから簡単にCRUD操作をテストできます！
-
----
-
-## ステップ6: グローバル分散の設定（参考知識）
+## グローバル分散の設定（参考知識）
 
 <div class="bg-blue-500/10 p-3 rounded mb-4 text-sm">
 <strong>💡 参考情報:</strong> Cosmos DBの強力な機能の1つは、ワンクリックでのグローバル分散です。複数のリージョンにデータを自動レプリケートできます。
@@ -1115,19 +1060,19 @@ API操作後、Azure Portalで変更を確認します。
 ```bash
 # 複数リージョンへのレプリケーション追加
 az cosmosdb update \
-  --name mycosmosdb20251009 \
-  --resource-group database-hands-on-rg \
-  --locations regionName=japaneast failoverPriority=0 \
+  --name $MY_COSMOS_DB \
+  --resource-group $RESOURCE_GROUP \
+  --locations regionName=$LOCATION failoverPriority=0 \
               regionName=westus2 failoverPriority=1
 
 # レプリケーション状況の確認
 az cosmosdb show \
-  --name mycosmosdb20251009 \
-  --resource-group database-hands-on-rg \
+  --name $MY_COSMOS_DB \
+  --resource-group $RESOURCE_GROUP \
   --query "locations"
 ```
 
-**メリット:**
+**メリット**
 
 - ユーザーに近いリージョンから低レイテンシでアクセス
 - 自動フェイルオーバーによる高可用性
@@ -1135,11 +1080,11 @@ az cosmosdb show \
 
 ---
 
-## ステップ7: 一貫性レベルの理解
+## 一貫性レベルの理解
 
 Cosmos DBの5つの一貫性レベルを理解します。
 
-**一貫性レベル（強→弱）:**
+**一貫性レベル（強→弱）**
 
 1. **Strong（強固）**: すべてのレプリカで同期、最新データを保証
 2. **Bounded Staleness（境界付き陳腐化）**: 最大遅延時間/バージョン数を指定
@@ -1149,17 +1094,17 @@ Cosmos DBの5つの一貫性レベルを理解します。
 
 <br>
 
-**選択の指針:**
+**選択の指針**
 
 - **Strong**: 金融取引など厳密な一貫性が必要
 - **Session**: 多くのアプリケーションに最適（パフォーマンスと一貫性のバランス）
 - **Eventual**: 読み取り性能を最優先する場合
 
 ---
+layout: center
+---
 
-## layout: center
-
-# ハンズオン③ Azure Database for PostgreSQL
+# ハンズオン③
 
 オープンソースPostgreSQLのマネージドサービスを活用
 
@@ -1184,6 +1129,7 @@ Cosmos DBの5つの一貫性レベルを理解します。
   - psqlとGUIツールの使用
 - **バックアップとリストア**
   - 自動バックアップの活用
+
 </div>
 <div>
 
@@ -1206,16 +1152,14 @@ Cosmos DBの5つの一貫性レベルを理解します。
 
 Flexible Serverを作成します。
 
-<div class="bg-orange-500/10 p-3 rounded mb-4 text-sm">
-<strong>👤 複数人での実施:</strong> PostgreSQL Serverの名前は世界で一意である必要があります。（例: <code>mypgserver-tanaka-20251015</code>）
-</div>
-
 ```bash
+export MY_POSTGRES_DB="taropgserver20251009"
+
 # PostgreSQL Flexible Server を作成
 az postgres flexible-server create \
-  --name mypgserver20251009 \
-  --resource-group database-hands-on-rg \
-  --location japaneast \
+  --name $MY_POSTGRES_DB \
+  --resource-group $RESOURCE_GROUP \
+  --location $LOCATION \
   --admin-user pgadmin \
   --admin-password 'YourPassword123!' \
   --sku-name Standard_B1ms \
@@ -1227,14 +1171,36 @@ az postgres flexible-server create \
 az postgres flexible-server list --output table
 ```
 
-**Flexible Server vs Single Server:**
+**Flexible Server vs Single Server**
 
 - **Flexible Server**: 新世代、より柔軟な構成、ゾーン冗長対応（推奨）
 - **Single Server**: レガシー、2025年3月に廃止予定
 
 ---
 
-## ステップ2: ファイアウォール設定
+## ステップ2: データベースの作成
+
+PostgreSQLデータベースを作成します。
+
+```bash
+export MY_DB="productsdb"
+
+# データベースを作成
+az postgres flexible-server db create \
+  --resource-group $RESOURCE_GROUP \
+  --server-name $MY_POSTGRES_DB \
+  --database-name $MY_DB
+
+# データベース一覧を確認
+az postgres flexible-server db list \
+  --resource-group $RESOURCE_GROUP \
+  --server-name $MY_POSTGRES_DB \
+  --output table
+```
+
+---
+
+## ステップ3: ファイアウォール設定
 
 自分のIPアドレスからのアクセスを許可します。
 
@@ -1244,42 +1210,20 @@ MY_IP=$(curl -s ifconfig.me)
 
 # ファイアウォールルールを追加
 az postgres flexible-server firewall-rule create \
-  --resource-group database-hands-on-rg \
-  --name mypgserver20251009 \
+  --resource-group $RESOURCE_GROUP \
+  --name $MY_POSTGRES_DB \
   --rule-name AllowMyIP \
   --start-ip-address $MY_IP \
   --end-ip-address $MY_IP
 
 # ルールを確認
 az postgres flexible-server firewall-rule list \
-  --resource-group database-hands-on-rg \
-  --name mypgserver20251009 \
+  --resource-group $RESOURCE_GROUP \
+  --name $MY_POSTGRES_DB \
   --output table
 ```
-
-<br>
 
 **💡 Tip:** Azureサービスからのアクセスを許可する場合は、Portalの設定で「Azureサービスへのアクセスを許可」を有効にします。
-
----
-
-## ステップ3: データベースの作成
-
-PostgreSQLデータベースを作成します。
-
-```bash
-# データベースを作成
-az postgres flexible-server db create \
-  --resource-group database-hands-on-rg \
-  --server-name mypgserver20251009 \
-  --database-name productsdb
-
-# データベース一覧を確認
-az postgres flexible-server db list \
-  --resource-group database-hands-on-rg \
-  --server-name mypgserver20251009 \
-  --output table
-```
 
 ---
 
@@ -1295,12 +1239,12 @@ psqlコマンドラインツールまたはpgAdminで接続します。
 ```bash
 # 接続文字列を取得
 az postgres flexible-server show-connection-string \
-  --server-name mypgserver20251009
+  --server-name $MY_POSTGRES_DB
 
 # psqlで接続
-psql "host=mypgserver20251009.postgres.database.azure.com \
+psql "host=$MY_POSTGRES_DB.postgres.database.azure.com \
       port=5432 \
-      dbname=productsdb \
+      dbname=$MY_DB \
       user=pgadmin \
       password=YourPassword123! \
       sslmode=require"
@@ -1320,7 +1264,7 @@ psql "host=mypgserver20251009.postgres.database.azure.com \
 1. pgAdminを起動
 2. サーバーを追加
    - **Name**: Azure PostgreSQL
-   - **Host**: `mypgserver20251009.postgres.database.azure.com`
+   - **Host**: `taropgserver20251009.postgres.database.azure.com`
    - **Port**: `5432`
    - **Username**: `pgadmin`
    - **Password**: `YourPassword123!`
@@ -1365,9 +1309,9 @@ GROUP BY category;
 
 ---
 
-## ステップ6-1: データの検証とクエリ実行
+## データの検証とクエリ実行（参考知識）
 
-**高度なクエリの実行:**
+**高度なクエリの実行**
 
 ```sql
 -- トランザクション処理のテスト
@@ -1387,7 +1331,7 @@ CREATE INDEX idx_price ON products(price);
 EXPLAIN ANALYZE SELECT * FROM products WHERE category = 'Electronics';
 ```
 
-**接続状態の確認:**
+**接続状態の確認**
 
 ```sql
 -- 現在の接続情報を確認
@@ -1399,7 +1343,7 @@ SELECT pg_size_pretty(pg_database_size('productsdb'));
 
 ---
 
-## ステップ7: 拡張機能の有効化（PostGIS）
+## 拡張機能の有効化 - PostGIS（参考知識）
 
 地理空間データを扱うためにPostGIS拡張機能を有効にします。
 
@@ -1434,11 +1378,13 @@ ORDER BY distance_km;
 
 ---
 
-## ステップ8: パフォーマンス監視
+## ステップ6: パフォーマンス監視
 
 Azure PortalでPostgreSQLのパフォーマンスを監視します。
 
-**監視項目:**
+<br/>
+
+**監視項目**
 
 1. **Azure Portal → PostgreSQL flexible server → Monitoring**
 2. 「メトリック」で以下を確認：
@@ -1448,22 +1394,9 @@ Azure PortalでPostgreSQLのパフォーマンスを監視します。
    - ストレージ使用量
    - レプリケーション遅延（レプリカがある場合）
 
-**クエリパフォーマンスの確認:**
-
-```sql
--- 実行中のクエリを確認
-SELECT pid, usename, application_name, client_addr, state, query
-FROM pg_stat_activity
-WHERE state = 'active';
-
--- テーブルの統計情報を確認
-SELECT schemaname, tablename, n_live_tup, n_dead_tup
-FROM pg_stat_user_tables;
-```
-
 ---
 
-## ステップ9: 高可用性設定（参考知識）
+## 高可用性設定（参考知識）
 
 <div class="bg-blue-500/10 p-3 rounded mb-4 text-sm">
 <strong>💡 参考情報:</strong> Flexible Serverはゾーン冗長構成で高可用性を実現できます。自動フェイルオーバーにより、障害時のダウンタイムを最小化します。
@@ -1473,8 +1406,8 @@ FROM pg_stat_user_tables;
 # 高可用性を有効化したサーバーの作成
 az postgres flexible-server create \
   --name mypgserver-ha-20251009 \
-  --resource-group database-hands-on-rg \
-  --location japaneast \
+  --resource-group $RESOURCE_GROUP \
+  --location $LOCATION \
   --admin-user pgadmin \
   --admin-password 'YourPassword123!' \
   --sku-name Standard_D2s_v3 \
@@ -1483,7 +1416,7 @@ az postgres flexible-server create \
   --version 15
 ```
 
-**高可用性のメリット:**
+**高可用性のメリット**
 
 - 99.99%の可用性SLA
 - 自動フェイルオーバー（数秒〜数十秒）
@@ -1491,11 +1424,11 @@ az postgres flexible-server create \
 
 ---
 
-## ステップ10: バックアップとリストア
+## バックアップとリストア（参考知識）
 
 自動バックアップとポイントインタイムリストアを活用します。
 
-**自動バックアップ:**
+**自動バックアップ**
 
 - Flexible Serverは自動的に毎日バックアップを実施
 - 保持期間はデフォルトで7日間（最大35日間まで設定可能）
@@ -1504,23 +1437,23 @@ az postgres flexible-server create \
 ```bash
 # バックアップ保持期間の確認
 az postgres flexible-server show \
-  --name mypgserver20251009 \
-  --resource-group database-hands-on-rg \
+  --name $MY_POSTGRES_DB \
+  --resource-group $RESOURCE_GROUP \
   --query "backup.backupRetentionDays"
 
 # ポイントインタイムリストア
 az postgres flexible-server restore \
-  --resource-group database-hands-on-rg \
+  --resource-group $RESOURCE_GROUP \
   --name mypgserver-restored \
-  --source-server mypgserver20251009 \
+  --source-server $MY_POSTGRES_DB \
   --restore-time "2025-10-09T12:00:00Z"
 ```
 
 **💡 Tip:** 本番環境では、定期的にリストアのテストを実施して復旧手順を確認してください。
 
 ---
-
-## layout: center
+layout: center
+---
 
 # まとめ
 
@@ -1668,7 +1601,7 @@ Azure Database サービス完全攻略
 ```bash
 # リソースグループの削除（すべてのリソースが削除されます）
 az group delete \
-  --name database-hands-on-rg \
+  --name $RESOURCE_GROUP \
   --yes \
   --no-wait
 
@@ -1692,15 +1625,7 @@ az group list --output table
 - 一時的に停止したい場合は、サーバーを停止（課金停止）
 
 ---
-
-## layout: center
+layout: center
+---
 
 # ありがとうございました！
-
-## 質疑応答
-
-<div class="pt-12">
-  <span class="text-sm opacity-50">
-    このスライドも Slidev で作成しました 🚀
-  </span>
-</div>

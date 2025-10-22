@@ -450,7 +450,7 @@ az account set --subscription "YOUR_SUBSCRIPTION_ID"
 ```bash
 # このハンズオン用のリソースグループを作成
 az group create \
-  --name appservice-hands-on-rg \
+  --name $RESOURCE_GROUP \
   --location japaneast
 
 # 作成されたことを確認
@@ -582,6 +582,48 @@ Next.js アプリを App Service にデプロイして公開
 
 ---
 
+## App Service Plan とは
+
+App Service Plan は、Web アプリが実行される物理的なリソース（VM）を定義します。
+
+```mermaid
+graph TB
+    A[App Service Plan<br>B1プラン<br>1.75GB RAM] --> B[App Service 1<br>myapp-api]
+    A --> C[App Service 2<br>myapp-web]
+    A --> D[App Service 3<br>myapp-admin]
+
+    style A fill:#e1ffe1
+    style B fill:#ffe1e1
+    style C fill:#ffe1e1
+    style D fill:#ffe1e1
+```
+
+<div class="grid grid-cols-2 gap-6 pt-4 text-sm">
+<div>
+
+- **リソースを共有**
+  - 複数の App Service が同じ Plan 上で動く
+  - CPU・メモリを共有
+- **スケーリング単位**
+  - Plan 単位でスケールアップ/アウト
+- **課金単位**
+  - Plan ごとに課金（App Service 自体は無料）
+
+</div>
+<div>
+
+| Tier     | 用途         | 価格目安   |
+| -------- | ------------ | ---------- |
+| **F1**   | 開発・テスト | 無料       |
+| **B1**   | 小規模本番   | ¥1,400/月  |
+| **S1**   | 本番環境     | ¥8,500/月  |
+| **P1v3** | 高性能本番   | ¥16,000/月 |
+
+</div>
+</div>
+
+---
+
 <div class="flex items-center gap-x-4">
 
 ## ステップ 1: App Service Plan の作成
@@ -592,10 +634,13 @@ Next.js アプリを App Service にデプロイして公開
 まず、Web アプリの土台となる **App Service Plan** を作成します。
 
 ```bash
+# resource groupの設定
+export RESOURCE_GROUP="rg-hands-on"
+
 # App Service Plan 作成 (B1プラン)
 az appservice plan create \
   --name webapp-plan \
-  --resource-group appservice-hands-on-rg \
+  --resource-group $RESOURCE_GROUP \
   --location japaneast \
   --sku B1 \
   --is-linux
@@ -604,27 +649,20 @@ az appservice plan create \
 az appservice plan list --output table
 ```
 
-**App Service Plan とは？**
-
-- **コンピューティングリソースの仕様を定義**するもの
-- リージョン、OS、価格レベル (Free, Basic, Standard, Premium) を決定
-- 一つの Plan 上に複数の Web App を配置可能
-
 ---
 
 ## ステップ 2: Web App の作成
 
 作成した Plan の上に Web アプリを作成します。
 
-<div class="bg-orange-500/10 p-3 rounded mb-4 text-sm mt-3">
-<strong>👤 複数人での実施:</strong> Web Appの名前は世界で一意である必要があります。各自、自分の名前や日付を含めた一意な名前を使用してください（例: <code>my-webapp-tanaka-20251007</code>）
-</div>
-
 ```bash
+# Web appsの名前
+export MY_WEB_NAME="tarowebapp2025"
+
 # Node.js 22-lts ランタイムで Web アプリを作成
 az webapp create \
-  --name my-webapp-20251007 \
-  --resource-group appservice-hands-on-rg \
+  --name $MY_WEB_NAME \
+  --resource-group $RESOURCE_GROUP \
   --plan webapp-plan \
   --runtime "NODE:22-lts"
 
@@ -633,151 +671,45 @@ az webapp list --output table
 
 # ブラウザで開く
 az webapp browse \
-  --name my-webapp-20251007 \
-  --resource-group appservice-hands-on-rg
+  --name $MY_WEB_NAME \
+  --resource-group $RESOURCE_GROUP
 ```
 
-**💡 Tip:** `--name` はグローバルで一意な名前が必要です（例: `my-webapp-20251007`）。
+**💡 Tip:** `--name` はグローバルで一意な名前が必要です。
 
 ---
 
-## ステップ 3-1: Next.js プロジェクト作成
+## ステップ 3: Next.jsアプリのデプロイ
 
-Next.js プロジェクトを作成します。
+今回はNext.jsでアプリケーションをビルド結果をZIPにしたものがあるのでそれをダウンロードし、デプロイしていきます。
+ダウンロードしたzipを解凍し、package.jsonをREADME.mdの通り修正してください。
 
 ```bash
-# Next.jsプロジェクト作成（対話形式）
-npx create-next-app@latest my-nextjs-app
-```
+# cdで該当のフォルダに移動後
+npm install
+npm run build
 
-**質問が出たら以下のように回答:**
+# package.jsonの修正し再度build
 
-- ✔ TypeScript? → **Yes**
-- ✔ ESLint? → **Yes**
-- ✔ Tailwind CSS? → **No**（任意）
-- ✔ App Router? → **Yes**
-- ✔ Turbopack? → **No**
-- ✔ Import alias? → **@/\***
-
-```bash
-cd my-nextjs-app
-```
-
----
-
-## ステップ 3-2: Standalone 出力の設定
-
-`next.config.js`（または`next.config.mjs`）を以下のように設定:
-
-```javascript
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: "standalone",
-};
-
-module.exports = nextConfig;
-```
-
-次に、`package.json`の`scripts`セクションの**build スクリプト**を修正:
-
-```json
-"scripts": {
-  "dev": "next dev",
-  "build": "next build && mkdir -p .next/standalone/Desktop/my-nextjs-app/application/.next && cp -r .next/static .next/standalone/Desktop/my-nextjs-app/application/.next/ && cp -r public .next/standalone/Desktop/my-nextjs-app/application/",
-  "start": "next start",
-  "lint": "next lint"
-}
-```
-
-**💡 重要:** 静的ファイル（`.next/static`と`public`）を standalone フォルダにコピーしないと、**CSS や Tailwind のスタイルが適用されません**。
-
----
-
-## ステップ 3-3: ページの編集
-
-`app/page.tsx`を編集してテストページを作成します。
-
-```typescript
-// app/page.tsx
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl font-bold">Hello, Azure App Service!</h1>
-      <p className="mt-4 text-xl">
-        このサイトはApp Serviceでホストされています。
-      </p>
-    </main>
-  );
-}
-```
-
----
-
-## ステップ 4-1: ビルドとパス確認
-
-本番用ビルドを実行し、server.js のパスを確認します。
-
-```bash
-# 本番用ビルド
-bun run build
-
-# standaloneフォルダの確認（server.jsのパスを確認）
-ls .next/standalone
-# 出力例: Desktop/  node_modules/  package.json
-# ※プロジェクトのフルパスが含まれることがあります
-```
-
-**💡 重要:** `ls`コマンドの出力結果を確認してください。次のステップでこのパスを使用します。
-
-<br />
-
-`package.json`の`scripts`セクションを修正:
-
-```json
-"scripts": {
-  "dev": "next dev",
-  "build": "next build",
-  "start": "node .next/standalone/Desktop/my-nextjs-app/server.js"
-}
-```
-
-**💡 重要:** `ls .next/standalone`で確認したパスに合わせて、`server.js`のパスを修正してください。
-
----
-
-## ステップ 4-2: ZIP デプロイ
-
-ZIP ファイルを作成して App Service にデプロイします。
-
-```bash
 # デプロイ用のZIPファイル作成
-zip -r ./my-nextjs-app.zip .next public package.json node_modules
+zip -r ./application.zip .next public package.json node_modules
 
-# ZIPデプロイ
+# ZIPデプロイ（--src-pathはダウンロードした箇所と現在のカレントディレクトリによる）
 az webapp deploy \
-  --name my-webapp-20251007 \
-  --resource-group appservice-hands-on-rg \
-  --src-path ./my-nextjs-app.zip \
+  --name $MY_WEB_NAME \
+  --resource-group $RESOURCE_GROUP \
+  --src-path ./application.zip \
   --type zip
 
 # デプロイ完了後、ブラウザで開く
 az webapp browse \
-  --name my-webapp-20251007 \
-  --resource-group appservice-hands-on-rg
+  --name $MY_WEB_NAME \
+  --resource-group $RESOURCE_GROUP
 ```
-
-**💡 ポイント:**
-
-- ZIP には`.next`、`public`、`package.json`、`node_modules`を含めます
-- App Service は`package.json`の`start`スクリプトを自動的に実行します
 
 ---
 
-## ステップ 5: カスタムドメインと HTTPS（参考知識）
-
-<div class="bg-blue-500/10 p-3 rounded mb-4 text-sm">
-<strong>💡 参考情報:</strong> このステップはハンズオンでは実施しません。独自ドメインを持っている場合や、本番環境で使用する際の参考知識として確認してください。
-</div>
+## カスタムドメインと HTTPS（参考知識）
 
 カスタムドメインを追加し、HTTPS を有効化する方法です。
 
@@ -792,8 +724,8 @@ az webapp browse \
 
 # ドメインを追加
 az webapp config hostname add \
-  --webapp-name my-webapp-20251007 \
-  --resource-group appservice-hands-on-rg \
+  --webapp-name $MY_WEB_NAME \
+  --resource-group $RESOURCE_GROUP \
   --hostname www.example.com
 ```
 
@@ -805,14 +737,14 @@ az webapp config hostname add \
 ```bash
 # マネージド証明書を作成
 az webapp config ssl create \
-  --name my-webapp-20251007 \
-  --resource-group appservice-hands-on-rg \
+  --name $MY_WEB_NAME \
+  --resource-group $RESOURCE_GROUP \
   --hostname www.example.com
 
 # HTTPS リダイレクトを有効化
 az webapp update \
-  --name my-webapp-20251007 \
-  --resource-group appservice-hands-on-rg \
+  --name $MY_WEB_NAME \
+  --resource-group $RESOURCE_GROUP \
   --https-only true
 ```
 
@@ -866,75 +798,86 @@ Node.js/Go の REST API をデプロイして GET/POST 実行
 
 ---
 
-## ステップ 1: Node.js Express API の作成
+## Local Git デプロイとは？
 
-シンプルな REST API を作成します。
+App Service へのデプロイ方法の一つで、Git を使ってソースコードを直接プッシュする方式です。
 
-```javascript
-// server.js
-const express = require("express");
-const app = express();
-const port = process.env.PORT || 3000;
+<div class="grid grid-cols-2 gap-8 pt-6">
+<div>
 
-app.use(express.json());
+### 🔄 仕組み
 
-// GET エンドポイント
-app.get("/api/hello", (req, res) => {
-  res.json({ message: "Hello from API Apps!" });
-});
+1. **App Service が Git リポジトリを提供**
+   - 各 Web App に専用の Git URL が発行される
+2. **ローカルから Git Push**
+   - `git push azure main` でデプロイ
+3. **自動ビルド・デプロイ**
+   - App Service 側で自動的にビルドして起動
 
-// POST エンドポイント
-app.post("/api/data", (req, res) => {
-  const { name } = req.body;
-  res.json({ message: `Received: ${name}`, timestamp: new Date() });
-});
+</div>
+<div>
 
-app.listen(port, () => {
-  console.log(`API server running on port ${port}`);
-});
-```
+### 📊 他のデプロイ方法との比較
+
+| 方式 | 特徴 |
+|------|------|
+| **Local Git** | Git でバージョン管理しながらデプロイ |
+| **ZIP デプロイ** | ビルド済みファイルをアップロード |
+| **GitHub Actions** | CI/CD パイプラインで自動化 |
+| **Azure DevOps** | エンタープライズ向け CI/CD |
+
+</div>
+</div>
+
+<div class="mt-3">
+
+**💡 メリット:** Git の履歴管理とデプロイを統合でき、ロールバックも簡単
+</div>
 
 ---
 
-## ステップ 2: API Apps の作成とデプロイ
-
-<div class="bg-orange-500/10 p-3 rounded mb-4 text-sm">
-<strong>👤 複数人での実施:</strong> API Appも一意な名前が必要です（例: <code>my-api-app-tanaka-20251007</code>）
-</div>
+## ステップ 1: API Apps の作成とデプロイ
 
 ```bash
+# まず、APIのZipをダウンロードする
+
+# API Appsの名前
+export MY_API_NAME="taroapiapp2025"
+
 # API App作成
 az webapp create \
-  --name my-api-app-20251007 \
-  --resource-group appservice-hands-on-rg \
+  --name $MY_API_NAME \
+  --resource-group $RESOURCE_GROUP \
   --plan webapp-plan \
   --runtime "NODE:22-lts"
 
-# package.jsonの準備
-npm init -y
-npm install express
+# Local Git デプロイを有効化
+az webapp deployment source config-local-git \
+  --name $MY_API_NAME \
+  --resource-group $RESOURCE_GROUP \
+  --query url -o tsv
 
-# デプロイ用のZIPファイル作成
-zip -r api-app.zip server.js package.json node_modules/
+# package install
+npm install
 
-# ZIPデプロイ（新しいコマンド）
-az webapp deploy \
-  --name my-api-app-20251007 \
-  --resource-group appservice-hands-on-rg \
-  --src-path api-app.zip \
-  --type zip
+# Git リモートを登録
+git init
+git remote add azure <your-az-url>
+
+# コードをpushしてデプロイ
+git add .
+git commit -m "first deploy"
+git push azure main
+# 上記で引っかかったら下記コマンド
+git push azure main:master
 
 # デプロイ完了後、動作確認
-curl https://my-api-app-20251007.azurewebsites.net/api/hello
+curl https://$MY_API_NAME.azurewebsites.net/api/hello
 ```
 
 ---
 
-## ステップ 3: CORS 設定（参考知識）
-
-<div class="bg-blue-500/10 p-3 rounded mb-4 text-sm">
-<strong>💡 参考情報:</strong> このステップはハンズオンでは実施しません。フロントエンドアプリケーション（別のドメイン）からこのAPIを呼び出す場合に必要な設定です。
-</div>
+## CORS 設定（参考知識）
 
 **CORS とは？**  
 異なるオリジン（ドメイン）の Web アプリから JavaScript で API を呼び出す際に必要な設定です。
@@ -944,14 +887,14 @@ curl https://my-api-app-20251007.azurewebsites.net/api/hello
 ```bash
 # CORS設定（すべてのオリジンを許可）
 az webapp cors add \
-  --name my-api-app-20251007 \
-  --resource-group appservice-hands-on-rg \
+  --name $MY_API_NAME \
+  --resource-group $RESOURCE_GROUP \
   --allowed-origins '*'
 
 # 特定のドメインのみ許可する場合（本番環境推奨）
 az webapp cors add \
-  --name my-api-app-20251007 \
-  --resource-group appservice-hands-on-rg \
+  --name $MY_API_NAME \
+  --resource-group $RESOURCE_GROUP \
   --allowed-origins 'https://example.com'
 ```
 
@@ -959,26 +902,22 @@ az webapp cors add \
 
 ---
 
-## ステップ 4: 環境変数の設定（参考知識）
-
-<div class="bg-blue-500/10 p-3 rounded mb-4 text-sm">
-<strong>💡 参考情報:</strong> このステップはハンズオンでは実施しません。APIキーやデータベース接続文字列などの機密情報を扱う場合の参考知識として確認してください。
-</div>
+## 環境変数の設定（参考知識）
 
 API キーなどの機密情報を環境変数で管理する方法です。
 
 ```bash
 # 環境変数の設定
 az webapp config appsettings set \
-  --name my-api-app-20251007 \
-  --resource-group appservice-hands-on-rg \
+  --name $MY_API_NAME \
+  --resource-group $RESOURCE_GROUP \
   --settings API_KEY="your-secret-key" \
               DATABASE_URL="your-db-connection-string"
 
 # 環境変数の確認
 az webapp config appsettings list \
-  --name my-api-app-20251007 \
-  --resource-group appservice-hands-on-rg
+  --name $MY_API_NAME \
+  --resource-group $RESOURCE_GROUP
 ```
 
 **Node.js から環境変数にアクセス:**
@@ -990,16 +929,16 @@ const dbUrl = process.env.DATABASE_URL;
 
 ---
 
-## API のテスト
+## ステップ 2: API のテスト
 
 curl または Postman で API をテストします。
 
 ```bash
 # GET リクエスト
-curl https://my-api-app-20251007.azurewebsites.net/api/hello
+curl https://$MY_API_NAME.azurewebsites.net/api/hello
 
 # POST リクエスト
-curl -X POST https://my-api-app-20251007.azurewebsites.net/api/data \
+curl -X POST https://$MY_API_NAME.azurewebsites.net/api/data \
   -H "Content-Type: application/json" \
   -d '{"name":"Azure User"}'
 ```
@@ -1060,33 +999,31 @@ layout: center
 
 ---
 
-<div class="flex items-center gap-x-4">
-
 ## ステップ 1: Application Insights の作成
-
-<div class="text-sm bg-blue-500/20 px-2 py-1 rounded mb-3">👥 共有可能</div>
-</div>
 
 監視リソースを作成します。
 
 ```bash
+# Application Insightsの名前
+export APP_INSIGHTS_NAME="taroinsights2025"
+
 # Application Insights作成
 az monitor app-insights component create \
-  --app appservice-insights \
+  --app $APP_INSIGHTS_NAME \
   --location japaneast \
-  --resource-group appservice-hands-on-rg \
+  --resource-group $RESOURCE_GROUP \
   --application-type web
 
 # Instrumentation Key取得
 az monitor app-insights component show \
-  --app appservice-insights \
-  --resource-group appservice-hands-on-rg \
+  --app $APP_INSIGHTS_NAME \
+  --resource-group $RESOURCE_GROUP \
   --query "instrumentationKey" -o tsv
 
 # Connection String取得
 az monitor app-insights component show \
-  --app appservice-insights \
-  --resource-group appservice-hands-on-rg \
+  --app $APP_INSIGHTS_NAME \
+  --resource-group $RESOURCE_GROUP \
   --query "connectionString" -o tsv
 ```
 
@@ -1099,200 +1036,46 @@ az monitor app-insights component show \
 ```bash
 # 接続文字列を取得（先ほど取得した値を使用）
 CONNECTION_STRING=$(az monitor app-insights component show \
-  --app appservice-insights \
-  --resource-group appservice-hands-on-rg \
+  --app $APP_INSIGHTS_NAME \
+  --resource-group $RESOURCE_GROUP \
   --query "connectionString" -o tsv)
 
 # Web AppにConnection Stringを設定
 az webapp config appsettings set \
-  --name my-webapp-20251007 \
-  --resource-group appservice-hands-on-rg \
+  --name $MY_WEB_NAME \
+  --resource-group $RESOURCE_GROUP \
   --settings APPLICATIONINSIGHTS_CONNECTION_STRING="$CONNECTION_STRING"
 
 # Application Insightsを有効化（Web Appと紐付け）
 az monitor app-insights component connect-webapp \
-  --app appservice-insights \
-  --resource-group appservice-hands-on-rg \
-  --web-app my-webapp-20251007
+  --app $APP_INSIGHTS_NAME \
+  --resource-group $RESOURCE_GROUP \
+  --web-app $MY_WEB_NAME
 
 # 再起動
 az webapp restart \
-  --name my-webapp-20251007 \
-  --resource-group appservice-hands-on-rg
+  --name $MY_WEB_NAME \
+  --resource-group $RESOURCE_GROUP
 ```
 
 **💡 Tip:** 再起動後、数分でテレメトリデータが収集され始めます。
 
 ---
 
-## ステップ 3-1: パッケージのインストール
-
-Next.js アプリケーションからログを送信する準備をします。
-
-```bash
-cd my-nextjs-app
-npm install @microsoft/applicationinsights-web
-```
-
-次に、Application Insights を統合するために**3 つのファイル**を編集していきます。
-
-<div class="grid grid-cols-3 gap-4 mt-4">
-<div class="bg-blue-500/10 p-3 rounded">
-<h5 class="font-bold mb-2">📁 lib/appInsights.ts</h5>
-<p class="text-sm">Application Insightsの初期化と設定を管理するユーティリティファイル</p>
-</div>
-
-<div class="bg-green-500/10 p-3 rounded">
-<h5 class="font-bold mb-2">🎨 app/layout.tsx</h5>
-<p class="text-sm">アプリ起動時にApplication Insightsを自動初期化するレイアウトファイル</p>
-</div>
-
-<div class="bg-yellow-500/10 p-3 rounded">
-<h5 class="font-bold mb-2">📄 app/page.tsx</h5>
-<p class="text-sm">実際にカスタムイベントを送信するメインページコンポーネント</p>
-</div>
-</div>
-
----
-
-## ステップ 3-2: クライアント側の設定ファイル作成
-
-`lib/appInsights.ts` を作成:
-
-<div class="text-xs">
-
-```typescript
-// lib/appInsights.ts
-import { ApplicationInsights } from "@microsoft/applicationinsights-web";
-
-let appInsights: ApplicationInsights | null = null;
-
-export function getAppInsights() {
-  if (typeof window !== "undefined" && !appInsights) {
-    const connectionString =
-      process.env.NEXT_PUBLIC_APPINSIGHTS_CONNECTION_STRING;
-
-    if (!connectionString) {
-      console.error("❌ Connection Stringが設定されていません");
-      return null;
-    }
-
-    try {
-      appInsights = new ApplicationInsights({
-        config: { connectionString, enableAutoRouteTracking: true },
-      });
-      appInsights.loadAppInsights();
-      appInsights.trackPageView();
-      console.log("✅ Application Insights初期化成功");
-    } catch (error) {
-      console.error("❌ 初期化エラー:", error);
-      appInsights = null;
-    }
-  }
-  return appInsights;
-}
-```
-
-</div>
-
----
-
-## ステップ 3-3: Layout での初期化
-
-`app/layout.tsx` で Application Insights を初期化:
-
-<div class="text-xs">
-
-```typescript
-// app/layout.tsx
-"use client";
-import { useEffect } from "react";
-import { getAppInsights } from "@/lib/appInsights";
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  useEffect(() => {
-    getAppInsights(); // 初期化
-  }, []);
-
-  return (
-    <html lang="ja">
-      <body>{children}</body>
-    </html>
-  );
-}
-```
-
-</div>
-
----
-
-## ステップ 3-4: カスタムイベントの送信
-
-`app/page.tsx` でボタンクリックをトラッキング:
-
-<div class="text-xs">
-
-```typescript
-// app/page.tsx
-"use client";
-import { getAppInsights } from "@/lib/appInsights";
-
-export default function Home() {
-  const handleClick = () => {
-    const appInsights = getAppInsights();
-    if (!appInsights) {
-      console.error("❌ Application Insightsが初期化されていません");
-      return;
-    }
-
-    appInsights.trackEvent({
-      name: "ButtonClicked",
-      properties: { page: "home" },
-    });
-    console.log("✅ イベント送信成功");
-  };
-
-  return (
-    <main style={{ padding: "2rem" }}>
-      <h1>Hello, Azure App Service!</h1>
-      <button onClick={handleClick}>Click me (tracked)</button>
-    </main>
-  );
-}
-```
-
-</div>
-
----
-
-## ステップ 3-5: 環境変数の設定
-
-#### ローカル開発用
-
-`.env.local` に接続文字列を追加:
-
-```bash
-NEXT_PUBLIC_APPINSIGHTS_CONNECTION_STRING="<接続文字列>"
-```
-
-#### Azure App Service 用
+## ステップ 3: App Service への環境変数追加
 
 ```bash
 # 接続文字列を取得
 CONNECTION_STRING=$(az monitor app-insights \
   component show \
-  --app appservice-insights \
-  --resource-group appservice-hands-on-rg \
+  --app $APP_INSIGHTS_NAME \
+  --resource-group $RESOURCE_GROUP \
   --query "connectionString" -o tsv)
 
 # 環境変数を設定
 az webapp config appsettings set \
-  --name my-webapp-20251007 \
-  --resource-group appservice-hands-on-rg \
+  --name $MY_WEB_NAME \
+  --resource-group $RESOURCE_GROUP \
   --settings \
     NEXT_PUBLIC_APPINSIGHTS_CONNECTION_STRING="$CONNECTION_STRING"
 ```
@@ -1301,46 +1084,10 @@ az webapp config appsettings set \
 
 ---
 
-## サーバーサイドのログ送信（オプション）
-
-API Route やサーバーコンポーネントからログを送信する場合の実装例です。
-
-#### パッケージインストール
-
-```bash
-npm install applicationinsights
-```
-
-#### API Route 例
-
-<div class="text-xs">
-
-```typescript
-// app/api/hello/route.ts
-import { NextResponse } from "next/server";
-const appInsights = require("applicationinsights");
-
-if (!appInsights.defaultClient) {
-  appInsights.setup(process.env.APPLICATIONINSIGHTS_CONNECTION_STRING).start();
-}
-
-export async function GET() {
-  appInsights.defaultClient.trackEvent({
-    name: "APICallReceived",
-  });
-  return NextResponse.json({
-    message: "Hello!",
-  });
-}
-```
-
-</div>
-
----
-
 ## ステップ 4: ログとメトリクスの確認
 
-Azure Portal でログとメトリクスを確認します。
+<div class="grid grid-cols-2 gap-8 pt-6">
+<div>
 
 ### Azure Portal での確認
 
@@ -1350,19 +1097,21 @@ Azure Portal でログとメトリクスを確認します。
 4. **Failures** でエラーを確認
 5. **Application Map** で依存関係を可視化
 
-<div class="mt-3">
+</div>
+<div>
 
 ### CLI でのメトリクス取得
 
 ```bash
 # 過去1時間のリクエスト数
 az monitor app-insights metrics show \
-  --app appservice-insights \
-  --resource-group appservice-hands-on-rg \
+  --app $APP_INSIGHTS_NAME \
+  --resource-group $RESOURCE_GROUP \
   --metric requests/count \
   --interval PT1H
 ```
 
+</div>
 </div>
 
 ---
@@ -1390,7 +1139,7 @@ customEvents
 
 ---
 
-## ステップ 6: アラートの設定（参考）
+## アラートの設定（参考知識）
 
 異常検知時に通知を受け取る設定です。
 
@@ -1405,7 +1154,7 @@ customEvents
 # メール通知グループを作成
 az monitor action-group create \
   --name email-admins \
-  --resource-group appservice-hands-on-rg \
+  --resource-group $RESOURCE_GROUP \
   --short-name emailadm \
   --email-receiver \
     name=AdminEmail \
@@ -1425,7 +1174,7 @@ az monitor action-group create \
 # 応答時間が3秒以上でアラート
 az monitor metrics alert create \
   --name high-response-time \
-  --resource-group appservice-hands-on-rg \
+  --resource-group $RESOURCE_GROUP \
   --scopes <INSIGHTS_RESOURCE_ID> \
   --condition "avg requests/duration > 3000" \
   --window-size 5m \
@@ -1446,6 +1195,9 @@ az monitor metrics alert create \
 
 送信したイベントは Azure Portal で確認できます。
 
+<div class="grid grid-cols-2 gap-6">
+<div>
+
 ### Azure Portal での確認
 
 1. **Application Insights** を開く
@@ -1462,17 +1214,23 @@ customEvents
 3. **Usage** → **Events**
    - カスタムイベントの一覧・集計
 
+</div>
+<div>
+
 ### CLI での確認
 
 ```bash
 az monitor app-insights query \
-  --app appservice-insights \
-  --resource-group appservice-hands-on-rg \
+  --app $APP_INSIGHTS_NAME \
+  --resource-group $RESOURCE_GROUP \
   --analytics-query \
     "customEvents | where name == 'ButtonClicked'"
 ```
 
 **💡 Tip:** データ反映には 1〜5 分かかることがあります（Live Metrics は即座）。
+
+</div>
+</div>
 
 ---
 

@@ -1,0 +1,10 @@
+{
+  "name": "107-app-service-for-container",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build --base /107-app-service-for-container/ --out ../../dist/107-app-service-for-container",
+    "dev": "slidev --open",
+    "export": "slidev export --dark --output ../../dist/107-app-service-for-container.pdf"
+  }
+}

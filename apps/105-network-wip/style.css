@@ -52,8 +52,7 @@ body {
   margin-bottom: 0.3em;
   font-weight: bold;
 }
-.slidev-layout td,
-.slidev-layout th {
+.slidev-layout td, .slidev-layout th {
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
   padding-left: 0.3rem;
@@ -97,7 +96,7 @@ code {
 /* Shikiコードブロック（スクロール対応） */
 .shiki,
 .slidev-code {
-  max-height: 350px;
+  max-height: 400px;
   overflow-y: auto;
   overflow-x: auto;
   border-radius: 8px;
