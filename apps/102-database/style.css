@@ -97,7 +97,7 @@ code {
 /* Shikiコードブロック（スクロール対応） */
 .shiki,
 .slidev-code {
-  max-height: 400px;
+  max-height: 350px;
   overflow-y: auto;
   overflow-x: auto;
   border-radius: 8px;
