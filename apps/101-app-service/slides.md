@@ -436,25 +436,6 @@ az account set --subscription "YOUR_SUBSCRIPTION_ID"
 
 ---
 
-## 環境変数の設定
-
-```bash
-# resource groupの設定
-export RESOURCE_GROUP=
-
-# Web appsの名前
-export MY_WEB_NAME=
-
-# API Appsの名前
-export MY_API_NAME=
-
-# Application Insightsの名前
-export APP_INSIGHTS_NAME=
-
-```
-
----
-
 <div class="flex items-center gap-x-4">
 
 ## リソースグループの作成
@@ -601,6 +582,48 @@ Next.js アプリを App Service にデプロイして公開
 
 ---
 
+## App Service Plan とは
+
+App Service Plan は、Web アプリが実行される物理的なリソース（VM）を定義します。
+
+```mermaid
+graph TB
+    A[App Service Plan<br>B1プラン<br>1.75GB RAM] --> B[App Service 1<br>myapp-api]
+    A --> C[App Service 2<br>myapp-web]
+    A --> D[App Service 3<br>myapp-admin]
+
+    style A fill:#e1ffe1
+    style B fill:#ffe1e1
+    style C fill:#ffe1e1
+    style D fill:#ffe1e1
+```
+
+<div class="grid grid-cols-2 gap-6 pt-4 text-sm">
+<div>
+
+- **リソースを共有**
+  - 複数の App Service が同じ Plan 上で動く
+  - CPU・メモリを共有
+- **スケーリング単位**
+  - Plan 単位でスケールアップ/アウト
+- **課金単位**
+  - Plan ごとに課金（App Service 自体は無料）
+
+</div>
+<div>
+
+| Tier     | 用途         | 価格目安   |
+| -------- | ------------ | ---------- |
+| **F1**   | 開発・テスト | 無料       |
+| **B1**   | 小規模本番   | ¥1,400/月  |
+| **S1**   | 本番環境     | ¥8,500/月  |
+| **P1v3** | 高性能本番   | ¥16,000/月 |
+
+</div>
+</div>
+
+---
+
 <div class="flex items-center gap-x-4">
 
 ## ステップ 1: App Service Plan の作成
@@ -611,6 +634,9 @@ Next.js アプリを App Service にデプロイして公開
 まず、Web アプリの土台となる **App Service Plan** を作成します。
 
 ```bash
+# resource groupの設定
+export RESOURCE_GROUP="rg-hands-on"
+
 # App Service Plan 作成 (B1プラン)
 az appservice plan create \
   --name webapp-plan \
@@ -623,23 +649,16 @@ az appservice plan create \
 az appservice plan list --output table
 ```
 
-**App Service Plan とは？**
-
-- **コンピューティングリソースの仕様を定義**するもの
-- リージョン、OS、価格レベル (Free, Basic, Standard, Premium) を決定
-- 一つの Plan 上に複数の Web App を配置可能
-
 ---
 
 ## ステップ 2: Web App の作成
 
 作成した Plan の上に Web アプリを作成します。
 
-<div class="bg-orange-500/10 p-3 rounded mb-4 text-sm mt-3">
-<strong>👤 複数人での実施:</strong> Web Appの名前は世界で一意である必要があります。各自、自分の名前や日付を含めた一意な名前を使用してください（例: <code>my-webapp-tanaka-20251007</code>）
-</div>
-
 ```bash
+# Web appsの名前
+export MY_WEB_NAME="tarowebapp2025"
+
 # Node.js 22-lts ランタイムで Web アプリを作成
 az webapp create \
   --name $MY_WEB_NAME \
@@ -690,11 +709,7 @@ az webapp browse \
 
 ---
 
-## ステップ 4: カスタムドメインと HTTPS（参考知識）
-
-<div class="bg-blue-500/10 p-3 rounded mb-4 text-sm">
-<strong>💡 参考情報:</strong> このステップはハンズオンでは実施しません。独自ドメインを持っている場合や、本番環境で使用する際の参考知識として確認してください。
-</div>
+## カスタムドメインと HTTPS（参考知識）
 
 カスタムドメインを追加し、HTTPS を有効化する方法です。
 
@@ -823,12 +838,11 @@ App Service へのデプロイ方法の一つで、Git を使ってソースコ�
 
 ## ステップ 1: API Apps の作成とデプロイ
 
-<div class="bg-orange-500/10 p-3 rounded mb-4 text-sm">
-<strong>👤 複数人での実施:</strong> API Appも一意な名前が必要です（例: <code>my-api-app-tanaka-20251007</code>）
-</div>
-
 ```bash
 # まず、APIのZipをダウンロードする
+
+# API Appsの名前
+export MY_API_NAME="taroapiapp2025"
 
 # API App作成
 az webapp create \
@@ -863,11 +877,7 @@ curl https://$MY_API_NAME.azurewebsites.net/api/hello
 
 ---
 
-## ステップ 2: CORS 設定（参考知識）
-
-<div class="bg-blue-500/10 p-3 rounded text-sm">
-<strong>💡 参考情報:</strong> フロントエンドアプリケーション（別のドメイン）からこのAPIを呼び出す場合に必要な設定です。
-</div>
+## CORS 設定（参考知識）
 
 **CORS とは？**  
 異なるオリジン（ドメイン）の Web アプリから JavaScript で API を呼び出す際に必要な設定です。
@@ -892,11 +902,7 @@ az webapp cors add \
 
 ---
 
-## ステップ 3: 環境変数の設定（参考知識）
-
-<div class="bg-blue-500/10 p-3 rounded text-sm">
-<strong>💡 参考情報:</strong> APIキーやデータベース接続文字列などの機密情報を扱う場合の参考知識として確認してください。
-</div>
+## 環境変数の設定（参考知識）
 
 API キーなどの機密情報を環境変数で管理する方法です。
 
@@ -923,7 +929,7 @@ const dbUrl = process.env.DATABASE_URL;
 
 ---
 
-## API のテスト
+## ステップ 2: API のテスト
 
 curl または Postman で API をテストします。
 
@@ -998,6 +1004,9 @@ layout: center
 監視リソースを作成します。
 
 ```bash
+# Application Insightsの名前
+export APP_INSIGHTS_NAME="taroinsights2025"
+
 # Application Insights作成
 az monitor app-insights component create \
   --app $APP_INSIGHTS_NAME \
@@ -1077,6 +1086,9 @@ az webapp config appsettings set \
 
 ## ステップ 4: ログとメトリクスの確認
 
+<div class="grid grid-cols-2 gap-8 pt-6">
+<div>
+
 ### Azure Portal での確認
 
 1. **Application Insights** を開く
@@ -1085,7 +1097,8 @@ az webapp config appsettings set \
 4. **Failures** でエラーを確認
 5. **Application Map** で依存関係を可視化
 
-<div class="mt-3">
+</div>
+<div>
 
 ### CLI でのメトリクス取得
 
@@ -1098,6 +1111,7 @@ az monitor app-insights metrics show \
   --interval PT1H
 ```
 
+</div>
 </div>
 
 ---
@@ -1125,7 +1139,7 @@ customEvents
 
 ---
 
-## ステップ 6: アラートの設定（参考）
+## アラートの設定（参考知識）
 
 異常検知時に通知を受け取る設定です。
 
@@ -1181,6 +1195,9 @@ az monitor metrics alert create \
 
 送信したイベントは Azure Portal で確認できます。
 
+<div class="grid grid-cols-2 gap-6">
+<div>
+
 ### Azure Portal での確認
 
 1. **Application Insights** を開く
@@ -1197,6 +1214,9 @@ customEvents
 3. **Usage** → **Events**
    - カスタムイベントの一覧・集計
 
+</div>
+<div>
+
 ### CLI での確認
 
 ```bash
@@ -1208,6 +1228,9 @@ az monitor app-insights query \
 ```
 
 **💡 Tip:** データ反映には 1〜5 分かかることがあります（Live Metrics は即座）。
+
+</div>
+</div>
 
 ---
 
