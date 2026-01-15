@@ -1,0 +1,10 @@
+{
+  "name": "108-container-apps",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build --base /108-container-apps/ --out ../../dist/108-container-apps",
+    "dev": "slidev --open",
+    "export": "slidev export --dark --output ../../dist/108-container-apps.pdf"
+  }
+}
